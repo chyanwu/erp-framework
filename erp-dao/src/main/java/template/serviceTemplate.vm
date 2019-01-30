@@ -1,0 +1,17 @@
+package ${servicePackage};
+
+import ${entityPackage}.${beanName};
+import com.chenyanwu.erp.erpservice.service.BaseService;
+
+/**
+* <p>
+    * ${remark} 服务类
+    * </p>
+*
+* @author ${author}
+* @date ${dateTime}
+* @version
+*/
+public interface ${beanName}Service extends BaseService<${beanName}, Object> {
+
+}

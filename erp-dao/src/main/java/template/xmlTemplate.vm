@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${mapperPackage}.${beanName}Mapper">
+    <resultMap id="BaseResultMap" type="${entityPackage}.${beanName}">
+        #foreach ( $item in ${columns})
+            #set($iskey=false)
+            #foreach($key in $primaryKeys)
+                #if( $item.column == $key )
+                    #set($iskey=true)
+                    <id column="${item.column}" property="${item.lowerProperty}" jdbcType="${item.jdbcType}"/>
+                #end
+            #end
+        #end
+
+        #foreach ( $item in ${columns})
+            #set($iskey=false)
+            #foreach($key in $primaryKeys)
+                #if( $item.column == $key )
+                    #set($iskey=true)
+                #end
+            #end
+            #if($iskey ==false)
+                <result column="${item.column}" property="${item.lowerProperty}" jdbcType="${item.jdbcType}"/>
+            #end
+        #end
+
+    </resultMap>
+</mapper>
