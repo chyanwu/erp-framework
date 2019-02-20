@@ -1,0 +1,30 @@
+package ${serviceImplPackage};
+
+import ${entityPackage}.${beanName};
+import ${mapperPackage}.${beanName}Mapper;
+import ${servicePackage}.${beanName}Service;
+import com.chenyanwu.erp.erpframework.service.impl.BaseServiceImpl;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+
+/**
+* <p>
+    * ${remark} 服务实现类
+    * </p>
+*
+* @author ${author}
+* @date ${dateTime}
+* @version
+*/
+@Service
+public class ${beanName}ServiceImpl extends BaseServiceImpl<${beanName}, Object>
+    implements ${beanName}Service {
+
+@Autowired
+private ${beanName}Mapper ${lowerBeanName}Mapper;
+
+@Autowired
+public void setMapper() {
+super.setMapper(${lowerBeanName}Mapper);
+}
+}

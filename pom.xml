@@ -11,13 +11,7 @@
     <groupId>com.chenyanwu.erp</groupId>
     <artifactId>erp-framework</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <modules>
-        <module>erp-web</module>
-        <module>erp-service</module>
-        <module>erp-dao</module>
-        <module>erp-utils</module>
-    </modules>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <name>erp-framework</name>
     <description>Demo project for Spring Boot</description>
 

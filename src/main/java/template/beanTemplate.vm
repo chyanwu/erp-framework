@@ -1,0 +1,61 @@
+package ${entityPackage};
+import javax.persistence.*;
+import java.io.Serializable;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
+import com.chenyanwu.erp.erpframework.entity.BaseEntity;
+#if (${hasDate})
+import java.util.Date;
+#end
+
+#if (${hasBigdecimal})
+
+import java.math.BigDecimal;
+#end
+
+/**
+* <p>
+    *
+    *${remark}
+    *
+    * </p>
+*
+* @author ${author}
+* @date ${dateTime}
+* @version
+*/
+@Table(name = "${tableName}")
+public class ${beanName} extends BaseEntity implements Serializable {
+
+#foreach ($item in $columns)
+    #if (!${baseColumns.contains($item.lowerProperty)})
+        #if (${item.remark} && ${item.remark}!='' )
+        /**
+        * ${item.remark}
+        */
+        #end
+        #if ( ${item.type} == "String" )
+        @Length(max=${item.maxLength},message="${item.remark} 长度不能超过${item.maxLength}")
+        #end
+        #if ( ${item.allowNull} == false )
+        @NotNull(message = "${item.column} not allow null")
+        #end
+    @Column(name = "${item.column}")
+    private ${item.type} ${item.lowerProperty};
+    #end
+#end
+
+#foreach ($item in $columns)
+    #if (!${baseColumns.contains($item.lowerProperty)})
+
+    public ${item.type} get${item.property}() {
+    return ${item.lowerProperty};
+    }
+
+    public void set${item.property}(${item.type} ${item.lowerProperty}) {
+    this.${item.lowerProperty} = ${item.lowerProperty};
+    }
+
+    #end
+#end
+}
