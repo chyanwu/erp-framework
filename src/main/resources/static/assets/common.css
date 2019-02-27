@@ -1,0 +1,282 @@
+html, body {
+    background: #EEEEEE;
+}
+
+/** 登录界面样式 */
+.login-logo {
+    text-align: center;
+    margin-top: 60px;
+}
+
+.login-logo img {
+    width: 50px;
+    height: 50px;
+}
+
+.login-logo cite {
+    font-style: normal;
+    font-weight: bold;
+    color: #666;
+    padding-left: 10px;
+    font-size: 28px;
+    vertical-align: middle;
+}
+
+.login-form {
+    width: 255px;
+    margin: 30px auto;
+    background: white;
+    border-radius: 10px;
+    padding: 40px 50px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+}
+
+.login-form .title {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+    padding-bottom: 15px;
+}
+
+/** //登录界面样式结束 */
+
+/** 主界面样式 */
+.admin-iframe {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.layui-layout-admin .layui-body {
+    bottom: 0;
+}
+
+.layui-layout-admin .layui-header a {
+    cursor: pointer;
+}
+
+.layui-layout-admin .layui-header .layui-nav-child dd {
+    text-align: center;
+}
+
+a {
+    cursor: pointer;
+}
+
+/** //主界面样式结束*/
+
+/** 公共样式 */
+.layui-fluid {
+    padding: 15px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.layui-form.model-form {
+    padding: 30px 30px 0px 0px;
+}
+
+.icon-btn {
+    padding: 0 10px;
+}
+
+.lable-require:before {
+    content: "*";
+    position: absolute;
+    left: 12px;
+    top: 14px;
+    color: red;
+    font-size: 22px;
+}
+
+.layui-badge-rim + .layui-badge-rim {
+    margin-left: 5px;
+}
+
+img + span {
+    vertical-align: middle;
+}
+
+/** //公共样式结束 */
+
+/** 标签输入框样式 */
+.tagsinput .tag {
+    background: #009688;
+    padding: 3px 19px 3px 4px;
+}
+
+.tagsinput .tag .tag-remove:after, .tagsinput .tag .tag-remove:before {
+    background: white;
+    top: 9px;
+    left: 5px;
+}
+
+.tagsinput {
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.tagsinput .tag .tag-remove {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+}
+
+.tagsinput div input {
+    padding: 0px 0px 0px 3px;
+}
+
+.tagsinput div input::-webkit-input-placeholder {
+    color: #999;
+}
+
+/** // 标签输入框样式end */
+
+/** header样式 */
+/** 导航栏下面的线条 */
+.layui-layout-admin .layui-header .layui-nav .layui-this:after, .layui-layout-admin .layui-header .layui-nav-bar {
+    height: 2px;
+    background-color: #03152A;
+    top: 0 !important;
+}
+
+.layui-layout-admin .layui-header .layui-nav-item .layui-icon {
+    font-size: 16px; /** 图标大小 */
+}
+
+.layui-layout-admin .layui-header .layui-layout-left {
+    left: 220px;
+    padding: 0 10px;
+    transition: all .3s;
+}
+
+.layui-layout-admin .layui-header .layui-layout-right {
+    padding: 0;
+}
+
+/** 重写header的背景色和字体颜色 */
+.layui-layout-admin .layui-header {
+    background-color: #fff;
+    box-shadow: 0 1px 0px 0 rgba(0, 0, 0, .05);
+}
+
+.layui-layout-admin .layui-header a {
+    color: #333;
+    padding: 0 15px;
+}
+
+.layui-layout-admin .layui-header a:hover {
+    color: #333;
+}
+
+.layui-layout-admin .layui-header .layui-nav-child a {
+    color: #333 !important;
+}
+
+.layui-layout-admin .layui-header .layui-nav .layui-nav-more {
+    border-color: #666 transparent transparent;
+}
+
+.layui-layout-admin .layui-header .layui-nav .layui-nav-mored {
+    border-color: transparent transparent #666;
+}
+
+.layui-layout-admin .layui-header .layui-nav-child dd {
+    text-align: center;
+}
+
+.layui-layout-admin .layui-header a {
+    cursor: pointer;
+}
+
+/** logo部分样式 */
+.layui-layout-admin .layui-header .layui-logo {
+    width: 220px;
+    background-color: #3A3D49;
+    color: #f2f2f2;
+    font-size: 18px;
+    font-family: Myriad Pro, Helvetica Neue, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    overflow: hidden;
+    transition: all .3s;
+}
+
+.layui-layout-admin .layui-header .layui-logo img {
+    height: 35px;
+}
+
+.layui-layout-admin .layui-header .layui-logo cite {
+    font-style: normal;
+}
+
+.layui-layout-admin .layui-header .layui-nav-img {
+    margin-right: 5px;
+}
+
+.layui-layout-admin .layui-header .layui-nav-img + cite {
+    margin-right: 5px;
+}
+
+/** //header样式结束 */
+
+/** 主体部分样式 */
+.layui-layout-admin .layui-body {
+    left: 220px;
+    transition: left .3s;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/** //主体部分样式结束 */
+
+/** 侧边栏样式 */
+.layui-layout-admin .layui-side .layui-side-scroll {
+    width: 240px;
+    transition: all .3s;
+    -webkit-transition: all .3s;
+}
+
+.layui-layout-admin .layui-side {
+    position: absolute;
+    width: 220px;
+    background-color: #3A3D49;
+    transition: all .3s;
+    -webkit-transition: all .3s;
+}
+
+.layui-layout-admin .layui-side .layui-nav {
+    width: 220px;
+    background-color: transparent;
+}
+
+.layui-layout-admin .layui-side .layui-nav .layui-nav-item > a:hover {
+    background: rgba(255, 255, 255, .03);
+}
+
+.layui-layout-admin .layui-side .layui-nav .layui-nav-item > .layui-nav-child {
+    padding: 5px 0;
+    background-color: rgba(0, 0, 0, .3) !important;
+}
+
+.layui-layout-admin .layui-side .layui-nav .layui-nav-more {
+    right: 15px;
+}
+
+.layui-layout-admin .layui-side .layui-nav .layui-nav-item .layui-nav-child a {
+    padding-left: 50px; /** 导航字体位置 */
+    cursor: pointer;
+}
+
+.layui-layout-admin .layui-side .layui-nav .layui-nav-item > a {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    cursor: pointer;
+}
+
+/** 侧边栏样式结束 */

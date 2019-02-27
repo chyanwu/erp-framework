@@ -74,7 +74,7 @@ public ResultBean<String> create(@RequestBody @Validated ${beanName} item){
 @RequestMapping(value = "/update",method = RequestMethod.POST)
 @ResponseBody
 public ResultBean<String> update(@RequestBody @Validated ${beanName} item){
-            service.updateByPrimaryKey(item);
+            service.updateByPrimaryKeySelective(item);
     return new ResultBean<String>("");
 }
 

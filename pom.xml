@@ -96,6 +96,39 @@
             <version>1.2.10</version>
         </dependency>
 
+        <!-- 对象与json对象相互转换，目前处理SpringMVC中对象参数为@RequestBody，出现Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.10</version>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>commons-fileupload</groupId>-->
+            <!--<artifactId>commons-fileupload</artifactId>-->
+            <!--<version>${fileupload.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- JSON -->
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.4</version>
+            <classifier>jdk15</classifier>
+        </dependency>
+
     </dependencies>
 
     <build>

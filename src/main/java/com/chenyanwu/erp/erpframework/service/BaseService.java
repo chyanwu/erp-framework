@@ -10,15 +10,19 @@ import java.util.List;
  * @Version 1.0
  */
 public interface BaseService<T, Id> {
-    public int insertSelective(T t);
+    int insertSelective(T t);
 
-    public int delete(T t);
+    int delete(T t);
 
-    public int deleteByPrimaryKey(Id id);
+    int deleteByPrimaryKey(Id id);
 
-    public int updateByPrimaryKey(T t);
+    int deleteByExample(Object o);
 
-    public T selectByPrimaryKey(Id id);
+    int updateByPrimaryKey(T t);
 
-    public List<T> selectAll();
+    int updateByPrimaryKeySelective(T t);
+
+    T selectByPrimaryKey(Id id);
+
+    List<T> selectAll();
 }

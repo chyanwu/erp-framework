@@ -40,9 +40,20 @@ public class BaseServiceImpl<T, Id> implements BaseService<T, Id> {
     }
 
     @Override
+    public int deleteByExample(Object o) {
+        return mapper.deleteByExample(o);
+    }
+
+
+    @Override
     @Transactional
     public int updateByPrimaryKey(T t) {
         return mapper.updateByPrimaryKey(t);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(T t) {
+        return mapper.updateByPrimaryKeySelective(t);
     }
 
     @Override

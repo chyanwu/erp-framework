@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenyanwu.erp.erpframework.dao.rbac.ErpMenuMapper">
+    <resultMap id="BaseResultMap" type="com.chenyanwu.erp.erpframework.entity.rbac.ErpMenu">
+                                                                                                                                                                                                                                                                                                
+                                                <result column="level" property="level" jdbcType="TINYINT"/>
+                                                            <result column="icon" property="icon" jdbcType="VARCHAR"/>
+                                                            <result column="permission" property="permission" jdbcType="VARCHAR"/>
+                                                            <result column="sort" property="sort" jdbcType="SMALLINT"/>
+                                                            <result column="type" property="type" jdbcType="BIT"/>
+                                                            <result column="url" property="url" jdbcType="VARCHAR"/>
+                                                            <result column="update_date" property="updateDate" jdbcType="DATE"/>
+                                                            <result column="target" property="target" jdbcType="BIT"/>
+                                                            <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+                                                            <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+                                                            <result column="name" property="name" jdbcType="VARCHAR"/>
+                                                            <result column="id" property="id" jdbcType="CHAR"/>
+                                                            <result column="create_date" property="createDate" jdbcType="DATE"/>
+                                                            <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+                    
+    </resultMap>
+
+
+    <resultMap id="SysRoleTreeMenuMap" type="com.chenyanwu.erp.erpframework.entity.dtree.Dtree">
+        <result property="title" column="name" jdbcType="VARCHAR"/>
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="VARCHAR"/>
+        <result property="level" column="level" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getSysRoleTreeMenus" resultMap="SysRoleTreeMenuMap" parameterType="java.lang.String" >
+        select distinct m.id as id,
+        m.name as name,
+        m.parent_id as parent_id,
+        m.level as level
+        from erp_menu m
+        <if test="roleId != null and roleId != ''">
+            INNER JOIN erp_role_menu rm on rm.menu_id = m.id
+        </if>
+        <if test="roleId != null and roleId != ''">
+            and rm.role_id = #{roleId}
+        </if>
+    </select>
+</mapper>

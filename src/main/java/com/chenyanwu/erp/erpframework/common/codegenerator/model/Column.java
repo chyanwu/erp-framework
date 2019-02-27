@@ -20,7 +20,6 @@ public class Column {
     private int dataType;
     private boolean allowNull;
     private boolean hasDictItem;
-    private List<DictItem> dictitemList;
     private int maxLength;
 
     public String getLowerProperty() {
@@ -93,14 +92,6 @@ public class Column {
 
     public void setHasDictItem(boolean hasDictItem) {
         this.hasDictItem = hasDictItem;
-    }
-
-    public List<DictItem> getDictitemList() {
-        return dictitemList;
-    }
-
-    public void setDictitemList(List<DictItem> dictitemList) {
-        this.dictitemList = dictitemList;
     }
 
     public int getMaxLength() {

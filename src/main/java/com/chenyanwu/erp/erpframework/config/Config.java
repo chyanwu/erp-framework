@@ -17,13 +17,13 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan(basePackages = {"com.chenyanwu.erp.erpframework"})
 public class Config {
-    @Bean
-    public DataSource dataSource() {
-        DruidDataSource druidDataSource = new DruidDataSource();
-        druidDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        druidDataSource.setUrl("jdbc:mysql://127.0.0.1:3306/erp-framework?useUnicode=true&characterEncoding=utf8");
-        druidDataSource.setUsername("root");
-        druidDataSource.setPassword("mysql");
-        return druidDataSource;
-    }
+//    @Bean
+//    public DataSource dataSource() {
+//        DruidDataSource druidDataSource = new DruidDataSource();
+//        druidDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//        druidDataSource.setUrl("jdbc:mysql://127.0.0.1:3306/erp-framework?useUnicode=true&characterEncoding=utf8");
+//        druidDataSource.setUsername("root");
+//        druidDataSource.setPassword("mysql");
+//        return druidDataSource;
+//    }
 }

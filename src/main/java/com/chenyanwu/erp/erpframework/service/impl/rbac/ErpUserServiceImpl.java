@@ -7,13 +7,15 @@ import com.chenyanwu.erp.erpframework.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 /**
 * <p>
     *  服务实现类
     * </p>
 *
 * @author chenyanwu
-* @date 2019-02-20 11:17:03
+* @date 2019-02-27 11:14:41
 * @version
 */
 @Service
@@ -27,4 +29,9 @@ private ErpUserMapper erpuserMapper;
 public void setMapper() {
 super.setMapper(erpuserMapper);
 }
+
+    @Override
+    public List<ErpUser> selectByExample(Object var1) {
+        return erpuserMapper.selectByExample(var1);
+    }
 }

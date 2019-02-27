@@ -1,8 +1,15 @@
 package com.chenyanwu.erp.erpframework.controller.rbac;
 
+import com.chenyanwu.erp.erpframework.common.Constants;
 import com.chenyanwu.erp.erpframework.common.PageResultBean;
 import com.chenyanwu.erp.erpframework.common.ResultBean;
+import com.chenyanwu.erp.erpframework.common.util.ToolUtil;
+import com.chenyanwu.erp.erpframework.entity.rbac.ErpRole;
+import com.chenyanwu.erp.erpframework.entity.rbac.ErpRoleUser;
+import com.chenyanwu.erp.erpframework.exception.BusinessException;
 import com.chenyanwu.erp.erpframework.exception.ExceptionEnum;
+import com.chenyanwu.erp.erpframework.service.rbac.ErpRoleService;
+import com.chenyanwu.erp.erpframework.service.rbac.ErpRoleUserService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
@@ -14,7 +21,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.chenyanwu.erp.erpframework.service.rbac.ErpUserService;
 import com.chenyanwu.erp.erpframework.entity.rbac.ErpUser;
+import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +31,7 @@ import java.util.List;
     * </p>
 *
 * @author chenyanwu
-* @date 2019-02-20 11:17:03
+* @date 2019-02-27 11:14:41
 * @version
 */
 @Controller
@@ -34,6 +43,11 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 @Autowired
 private ErpUserService service;
 
+@Autowired
+private ErpRoleService roleService;
+
+@Autowired
+private ErpRoleUserService roleUserService;
 
 
 @RequestMapping(value = "/get",method = RequestMethod.GET)
@@ -49,28 +63,93 @@ return new ResultBean<>(ExceptionEnum.RESOURCE_NOT_FOUND,null,"找不到该记�
 }
 
 
-@RequestMapping(value = "/getlist",method = RequestMethod.GET)
+@RequestMapping(value = "/getlist",method = RequestMethod.POST)
 @ResponseBody
-public PageResultBean<List<ErpUser>> getList(int page,int limit){
+public PageResultBean<List<ErpUser>> getList(int page,int limit, String searchKey, String searchValue){
 List<ErpUser> list;
-PageHelper.startPage(page, limit);
-list = service.selectAll();
+    PageHelper.startPage(page, limit);
+    Example example = new Example(ErpUser.class);
+    if(searchKey != null && !searchKey.trim().isEmpty() && searchValue != null && !searchValue.trim().isEmpty()) {
+        example.createCriteria()
+                .andEqualTo(searchKey, searchValue);
+        list = service.selectByExample(example);
+    } else {
+        list = service.selectAll();
+    }
+
+    // 关联岗位
+    List<String> userIds = new ArrayList<>();
+    for(ErpUser one: list) {
+        userIds.add(one.getId());
+    }
+    Example ruExample = new Example(ErpRoleUser.class);
+    ruExample.createCriteria().andIn("userId", userIds);
+    List<ErpRoleUser> rus = roleUserService.selectByExample(ruExample);
+    List<ErpRole> roles = roleService.selectAll();
+    for(ErpUser one: list) {
+        List<ErpRole> temp = new ArrayList<>();
+        for(ErpRoleUser ru: rus) {
+            if(one.getId().equals(ru.getUserId())) {
+                for(ErpRole p: roles) {
+                    if(ru.getRoleId().equals(p.getId())) {
+                        temp.add(p);
+                    }
+                }
+            }
+        }
+        one.setRoles(temp);
+    }
 return new PageResultBean(list,page,limit, ((Page) list).getTotal());
 
 }
 
 @RequestMapping(value = "/create",method = RequestMethod.POST)
 @ResponseBody
-public ResultBean<String> create(@RequestBody @Validated ErpUser item){
-    service.insertSelective(item);
-    return new ResultBean<String>("");
+public ResultBean<String> create(@Validated ErpUser item, String roleIds){
+    // 添加用户，需要设置对应的字段
+    item.setPassword(Constants.DEFAULT_PASSWORD);
+    ToolUtil.entryptPassword(item);
+    item.setLocked(0);
+    item.setEnabled(1);
+    String[] split = roleIds.split(",");
+    if(service.insertSelective(item) == 1) {
+        List<ErpRoleUser> roleUsers = new ArrayList<>();
+        for(String roleId: split) {
+            ErpRoleUser roleUser = new ErpRoleUser();
+            roleUser.setUserId(item.getId());
+            roleUser.setRoleId(roleId);
+            roleUsers.add(roleUser);
+        }
+        if(roleUserService.insertList(roleUsers) < 1) {
+            throw new BusinessException("501", "添加失败");
+        }
+        return new ResultBean<String>("");
+    }
+    return  new ResultBean<String>(ExceptionEnum.BUSINESS_ERROR, "添加失败", "", "");
 }
 
 @RequestMapping(value = "/update",method = RequestMethod.POST)
 @ResponseBody
-public ResultBean<String> update(@RequestBody @Validated ErpUser item){
-            service.updateByPrimaryKey(item);
-    return new ResultBean<String>("");
+public ResultBean<String> update(@Validated ErpUser item, String roleIds){
+            service.updateByPrimaryKeySelective(item);
+    String[] split = roleIds.split(",");
+    if(service.updateByPrimaryKeySelective(item) == 1) {
+        List<ErpRoleUser> roleUsers = new ArrayList<>();
+        for(String roleId: split) {
+            ErpRoleUser roleUser = new ErpRoleUser();
+            roleUser.setUserId(item.getId());
+            roleUser.setRoleId(roleId);
+            roleUsers.add(roleUser);
+        }
+        Example ruExample = new Example(ErpRoleUser.class);
+        ruExample.createCriteria().andEqualTo("userId", item.getId());
+        roleUserService.deleteByExample(ruExample);
+        if(roleUserService.insertList(roleUsers) < 1) {
+            throw new BusinessException("501", "修改失败");
+        }
+        return new ResultBean<String>("");
+    }
+    return  new ResultBean<String>(ExceptionEnum.BUSINESS_ERROR, "修改失败", "", "");
 }
 
 @RequestMapping(value = "/deleteByID",method = RequestMethod.POST)
@@ -82,15 +161,16 @@ public ResultBean<Integer> delete(String id){
 
 @RequestMapping(value = "/delete",method = RequestMethod.POST)
 @ResponseBody
-public ResultBean<Integer> delete( @RequestBody ErpUser item){
+public ResultBean<Integer> delete( ErpUser item){
     int result= service.delete(item);
     return new ResultBean<Integer>(result);
 }
 
-@GetMapping("index")
-public ModelAndView index(){
-return new ModelAndView( );
-}
+    @GetMapping("index")
+    public ModelAndView index(ModelAndView modelAndView){
+        modelAndView.setViewName("/rbac/user/index");
+        return modelAndView;
+    }
 
 @GetMapping("add")
 public ModelAndView add(){
@@ -105,5 +185,23 @@ modelAndView.addObject("entity",item );
 return modelAndView;
 }
 
+    @RequestMapping(value = "/state",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultBean<String> updateState(String id, Integer state) {
+        ErpUser user = service.selectByPrimaryKey(id);
+        user.setEnabled(state);
+        service.updateByPrimaryKey(user);
+        return new ResultBean<String>("");
+    }
+
+    @RequestMapping(value = "/psw",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultBean<String> updatePsw(String id) {
+        ErpUser user = service.selectByPrimaryKey(id);
+        user.setPassword(Constants.DEFAULT_PASSWORD);
+        ToolUtil.entryptPassword(user);
+        service.updateByPrimaryKey(user);
+        return new ResultBean<String>("");
+    }
 
 }

@@ -194,13 +194,6 @@ public class DataProcessor {
         List<Column> columns = table.getColumns();
 
         for (Column column : columns) {
-            List<DictItem> itemlist = getDictItem(column.getColumn().toLowerCase());
-            column.setDictitemList(itemlist);
-            if (itemlist.size() != 0) {
-                column.setHasDictItem(true);
-            } else {
-                column.setHasDictItem(false);
-            }
             String lowerProperty = StringUtils.underLineToCamel(column.getColumn().toLowerCase());
 
             column.setLowerProperty(lowerProperty);
@@ -214,39 +207,5 @@ public class DataProcessor {
 
         }
 
-    }
-
-    public List<DictItem> getDictItem(String code) {
-
-        List<DictItem> dictitemList;
-        String sql = "SELECT dt.id as dictId,dt.code as dictCode,dt.text as dictText," +
-                "di.sort as itemSort," +
-                "di.text as itemText,di.value as itemValue " +
-                "FROM dictionary_item di  " +
-                "join dictionary_type dt " +
-                "on dt.id=di.type_id " +
-                "and trim(dt.code)=trim(?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, code);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                dictitemList = new ArrayList<DictItem>();
-                while (resultSet.next()) {
-                    DictItem dictItem = new DictItem();
-                    dictItem.setDictCode(resultSet.getString("dictCode"));
-                    dictItem.setDictId(resultSet.getString("dictId"));
-                    dictItem.setDictText(resultSet.getString("dictText"));
-                    dictItem.setItemSort(resultSet.getInt("itemSort"));
-                    dictItem.setItemText(resultSet.getString("itemText"));
-                    dictItem.setItemValue(resultSet.getString("itemValue"));
-                    dictitemList.add(dictItem);
-                }
-                return dictitemList;
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
     }
 }

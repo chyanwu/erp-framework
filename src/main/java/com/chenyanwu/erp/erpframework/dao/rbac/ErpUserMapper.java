@@ -10,10 +10,10 @@ import tk.mybatis.mapper.common.special.InsertListMapper;
     * </p>
 *
 * @author chenyanwu
-* @date 2019-02-20 11:17:03
+* @date 2019-02-27 11:14:41
 * @version
 */
-@org.apache.ibatis.annotations.Mapper
+//@org.apache.ibatis.annotations.Mapper
 public interface ErpUserMapper extends Mapper<ErpUser>,InsertListMapper<ErpUser> {
 
 

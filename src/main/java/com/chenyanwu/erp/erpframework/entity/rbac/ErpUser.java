@@ -4,6 +4,8 @@ import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import com.chenyanwu.erp.erpframework.entity.BaseEntity;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -14,37 +16,96 @@ import com.chenyanwu.erp.erpframework.entity.BaseEntity;
     * </p>
 *
 * @author chenyanwu
-* @date 2019-02-20 11:17:03
+* @date 2019-02-27 11:14:41
 * @version
 */
 @Table(name = "erp_user")
 public class ErpUser extends BaseEntity implements Serializable {
 
                     /**
-        * 密码
+        * 盐值
         */
-                        @Length(max=255,message="密码 长度不能超过255")
+                        @Length(max=40,message="盐值 长度不能超过40")
+                    @Column(name = "salt")
+    private String salt;
+                        /**
+        * 是否启用
+        */
+                            @Column(name = "enabled")
+    private Integer enabled;
+                                /**
+        * 用户密码
+        */
+                        @Length(max=40,message="用户密码 长度不能超过40")
                     @Column(name = "password")
     private String password;
                         /**
-        * 性别
+        * 登陆账号
         */
-                        @Length(max=1,message="性别 长度不能超过1")
-                    @Column(name = "sex")
-    private String sex;
-                            /**
-        * 年龄
-        */
-                            @Column(name = "age")
-    private Integer age;
+                        @Length(max=30,message="登陆账号 长度不能超过30")
+                    @Column(name = "login_name")
+    private String loginName;
                         /**
-        * 用户名
+        * 手机号码
         */
-                        @Length(max=40,message="用户名 长度不能超过40")
-                    @Column(name = "username")
-    private String username;
-    
-    
+                        @Length(max=11,message="手机号码 长度不能超过11")
+                    @Column(name = "phone")
+    private String phone;
+                        /**
+        * 用户名称
+        */
+                        @Length(max=30,message="用户名称 长度不能超过30")
+                    @Column(name = "name")
+    private String name;
+                            /**
+        * 是否被锁
+        */
+                            @Column(name = "locked")
+    private Integer locked;
+                                /**
+        * 邮箱
+        */
+                        @Length(max=30,message="邮箱 长度不能超过30")
+                    @Column(name = "email")
+    private String email;
+
+                        private List<ErpRole> roles;
+                        private List<ErpMenu> menus;
+
+    public List<ErpRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<ErpRole> roles) {
+        this.roles = roles;
+    }
+
+    public List<ErpMenu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<ErpMenu> menus) {
+        this.menus = menus;
+    }
+
+    public String getSalt() {
+    return salt;
+    }
+
+    public void setSalt(String salt) {
+    this.salt = salt;
+    }
+
+        
+    public Integer getEnabled() {
+    return enabled;
+    }
+
+    public void setEnabled(Integer enabled) {
+    this.enabled = enabled;
+    }
+
+                
     public String getPassword() {
     return password;
     }
@@ -54,30 +115,48 @@ public class ErpUser extends BaseEntity implements Serializable {
     }
 
         
-    public String getSex() {
-    return sex;
+    public String getLoginName() {
+    return loginName;
     }
 
-    public void setSex(String sex) {
-    this.sex = sex;
-    }
-
-            
-    public Integer getAge() {
-    return age;
-    }
-
-    public void setAge(Integer age) {
-    this.age = age;
+    public void setLoginName(String loginName) {
+    this.loginName = loginName;
     }
 
         
-    public String getUsername() {
-    return username;
+    public String getPhone() {
+    return phone;
     }
 
-    public void setUsername(String username) {
-    this.username = username;
+    public void setPhone(String phone) {
+    this.phone = phone;
+    }
+
+        
+    public String getName() {
+    return name;
+    }
+
+    public void setName(String name) {
+    this.name = name;
+    }
+
+            
+    public Integer getLocked() {
+    return locked;
+    }
+
+    public void setLocked(Integer locked) {
+    this.locked = locked;
+    }
+
+                
+    public String getEmail() {
+    return email;
+    }
+
+    public void setEmail(String email) {
+    this.email = email;
     }
 
     }
