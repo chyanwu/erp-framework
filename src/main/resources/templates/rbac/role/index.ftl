@@ -126,20 +126,20 @@
             if (obj.event === 'edit') { //修改
                 showEditModel(data);
             } else if (obj.event === 'del') { // 删除
-                doDelete(data);
+                doDelete(obj);
             } else if (obj.event === 'auth') {  // 权限管理
                 showPermDialog(data.id);
             }
         });
 
         // 删除
-        function doDelete(data) {
+        function doDelete(obj) {
             layer.confirm('确定要删除吗？', {
                 offset: '65px',
             }, function (i) {
                 layer.close(i);
                 layer.load(2);
-                $.post("/erprole/delete", data, function (res){
+                $.post("/erprole/delete", obj.data, function (res){
                     layer.closeAll('loading');
                     if(res.code == 200){
                         layer.msg("删除成功");
@@ -163,34 +163,33 @@
                     form.val('roleForm', data);
                     // 表单提交事件
                     form.on('submit(roleFormSubmit)', function (d) {
-                        // layer.load(2);
-                        $.ajaxSettings.async = false;
+                        layer.load(2);
                         if(data) {
                             $.post("/erprole/update", d.field, function (res){
-                                // layer.closeAll("loading");
+                                layer.closeAll("loading");
                                 if(res.code == 200){
-                                    layer.msg("修改成功！",{time: 1000},function(){
-                                        // table.reload("roleTable");
-                                    });
+                                    layer.msg("修改成功！", {icon: 1});
+                                    layer.closeAll('page');
+                                    table.reload('roleTable');
                                 }else{
-                                    layer.msg(res.message);
+                                    layer.msg(res.msg, {icon: 2});
                                 }
                             });
                         } else {
                             $.post("/erprole/create", d.field, function (res){
-                                // layer.closeAll("loading");
+                                layer.closeAll("loading");
                                 if(res.code == 200){
-                                    layer.msg("添加成功！",{time: 1000},function(){
-                                        // table.reload('roleTable');
-                                    });
+                                    layer.msg("添加成功！", {icon: 1});
+                                    layer.closeAll('page');
+                                    table.reload('roleTable');
                                 }else{
-                                    layer.msg(res.message);
+                                    layer.msg(res.msg, {icon: 2});
                                 }
                             });
                         }
-                        $.ajaxSettings.async = true;
+                        return false;
                     });
-                    return false;
+
                 }
             });
         }
@@ -231,9 +230,9 @@
                     $.post("/erprole/auth", {id: roleId, ids: strIds}, function (res){
                         layer.close(index);
                         if(res.code == 200){
-                            layer.msg("角色权限分配成功！");
+                            layer.msg("角色权限分配成功！",{icon: 1});
                         }else{
-                            layer.msg(res.message);
+                            layer.msg(res.msg,{icon:2});
                         }
                     });
                 }

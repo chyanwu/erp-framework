@@ -241,32 +241,31 @@
                     // 表单提交事件
                     form.on('submit(userFormSubmit)', function (d) {
                         d.field.roleIds = formSelects.value('selRole', 'valStr');
-                        // layer.load(2);
-                        $.ajaxSettings.async = false;
+                        layer.load(2);
                         if(data) {
                             $.post("/erpuser/update", d.field, function (res){
-                                // layer.closeAll("loading");
+                                layer.closeAll("loading");
                                 if(res.code == 200){
-                                    layer.msg("修改成功！",{time: 1000},function(){
-                                        table.reload("userTable");
-                                    });
+                                    layer.msg("修改成功！", {icon: 1});
+                                    layer.closeAll('page');
+                                    table.reload('userTable');
                                 }else{
-                                    layer.msg(res.message);
+                                    layer.msg(res.msg, {icon: 2});
                                 }
                             });
                         } else {
                             $.post("/erpuser/create", d.field, function (res){
-                                // layer.closeAll("loading");
+                                layer.closeAll("loading");
                                 if(res.code == 200){
-                                    layer.msg("添加成功！",{time: 1000},function(){
-                                        table.reload("userTable");
-                                    });
+                                    layer.msg("添加成功！", {icon: 1});
+                                    layer.closeAll('page');
+                                    table.reload('userTable');
                                 }else{
-                                    layer.msg(res.message);
+                                    layer.msg(res.msg, {icon: 2});
                                 }
                             });
                         }
-                        $.ajaxSettings.async = true;
+                        return false;
                     });
                 }
             });

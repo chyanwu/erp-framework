@@ -236,7 +236,7 @@
                 if(res.code == 200){
                     setTree(res.data);
                 }else{
-                    layer.msg(res.message);
+                    layer.msg(res.msg);
                 }
             });
         };
@@ -281,18 +281,18 @@
                     form.render(null, "childMenuForm");
                     // 表单提交事件
                     form.on('submit(menuFormSubmit)', function (d) {
-                        $.ajaxSettings.async = false;
+                        layer.load(2);
                         $.post("/erpmenu/create", d.field, function (res){
+                            layer.closeAll("loading");
                             if(res.code == 200){
-                                layer.msg("添加成功",{time: 1000},function(){
-                                    table.reload("menuTable");
-                                    // loadDataToTable();
-                                });
+                                layer.msg("添加成功！", {icon: 1});
+                                layer.closeAll('page');
+                                loadDataToTable();
                             }else{
-                                layer.msg(res.message);
+                                layer.msg(res.msg, {icon: 2});
                             }
                         });
-                        $.ajaxSettings.async = true;
+                        return false;
                     });
                 }
             });
@@ -309,31 +309,31 @@
                     form.val('menuForm', data);
                     // 表单提交事件
                     form.on('submit(menuFormSubmit)', function (d) {
-                        $.ajaxSettings.async = false;
+                        layer.load(2);
                         if(data) {
                             $.post("/erpmenu/update", d.field, function (res){
+                                layer.closeAll("loading");
                                 if(res.code == 200){
-                                    layer.msg("修改成功",{time: 1000},function(){
-                                        table.reload("menuTable");
-                                        // loadDataToTable();
-                                    });
+                                    layer.msg("修改成功！", {icon: 1});
+                                    layer.closeAll('page');
+                                    loadDataToTable();
                                 }else{
-                                    layer.msg(res.message);
+                                    layer.msg(res.msg, {icon: 2});
                                 }
                             });
                         } else {
                             $.post("/erpmenu/create", d.field, function (res){
+                                layer.closeAll("loading");
                                 if(res.code == 200){
-                                    layer.msg("插入成功",{time: 1000},function(){
-                                        table.reload("menuTable");
-                                        // loadDataToTable();
-                                    });
+                                    layer.msg("添加成功！", {icon: 1});
+                                    layer.closeAll('page');
+                                    loadDataToTable();
                                 }else{
-                                    layer.msg(res.message);
+                                    layer.msg(res.msg, {icon: 2});
                                 }
                             });
                         }
-                        $.ajaxSettings.async = true;
+                        return false;
                     });
                 }
             });
