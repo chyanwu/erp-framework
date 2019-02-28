@@ -67,7 +67,7 @@
 <script type="text/javascript" src="/assets/common.js"></script>
 <script>
     layui.extend({
-        dtree: '{/}layui_ext/dtree/dtree'
+        dtree: '../../layui_ext/dtree/dtree'
     }).use(['layer', 'form', 'table', 'util', 'admin', 'dtree'], function () {
         var $ = layui.jquery;
         var layer = layui.layer;
