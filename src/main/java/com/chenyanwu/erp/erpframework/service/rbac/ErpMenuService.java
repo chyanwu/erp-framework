@@ -1,7 +1,10 @@
 package com.chenyanwu.erp.erpframework.service.rbac;
 
 import com.chenyanwu.erp.erpframework.entity.rbac.ErpMenu;
+import com.chenyanwu.erp.erpframework.entity.vo.ShowMenu;
 import com.chenyanwu.erp.erpframework.service.BaseService;
+
+import java.util.List;
 
 /**
 * <p>
@@ -14,4 +17,6 @@ import com.chenyanwu.erp.erpframework.service.BaseService;
 */
 public interface ErpMenuService extends BaseService<ErpMenu, Object> {
     String getTreeMenuList(String roleId);
+
+    List<ShowMenu> getShowMenuByUser(String id);
 }

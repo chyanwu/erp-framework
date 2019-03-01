@@ -2,6 +2,7 @@ package com.chenyanwu.erp.erpframework.controller.rbac;
 
 import com.chenyanwu.erp.erpframework.common.PageResultBean;
 import com.chenyanwu.erp.erpframework.common.ResultBean;
+import com.chenyanwu.erp.erpframework.entity.vo.ShowMenu;
 import com.chenyanwu.erp.erpframework.exception.ExceptionEnum;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -109,6 +110,18 @@ return modelAndView;
     @ResponseBody
     public String getTreeMenuList(String id) {
         return service.getTreeMenuList(id);
+    }
+
+    /***
+     * 获得用户所拥有的菜单列表
+     * @return
+     */
+    @GetMapping("/getUserMenu")
+    @ResponseBody
+    public ResultBean<List<ShowMenu>> getUserMenu(){
+//        String userId = MySysUser.id();//shiro有一个Util是可以拿到新用户信息的，不需要MySysUser
+        List<ShowMenu> list = service.getShowMenuByUser("1");
+        return new ResultBean<List<ShowMenu>>(list);
     }
 
 }

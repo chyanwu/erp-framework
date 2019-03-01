@@ -3,6 +3,7 @@ package com.chenyanwu.erp.erpframework.service.impl.rbac;
 import com.chenyanwu.erp.erpframework.entity.dtree.DtreeResponse;
 import com.chenyanwu.erp.erpframework.entity.rbac.ErpMenu;
 import com.chenyanwu.erp.erpframework.dao.rbac.ErpMenuMapper;
+import com.chenyanwu.erp.erpframework.entity.vo.ShowMenu;
 import com.chenyanwu.erp.erpframework.service.dtree.DtreeService;
 import com.chenyanwu.erp.erpframework.service.rbac.ErpMenuService;
 import com.chenyanwu.erp.erpframework.service.impl.BaseServiceImpl;
@@ -10,6 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import net.sf.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
 * <p>
@@ -40,5 +45,13 @@ super.setMapper(erpmenuMapper);
         DtreeResponse response = dtreeService.getMenuDtreeResponse(roleId);
         JSONObject obj = JSONObject.fromObject(response);
         return obj.toString();
+    }
+
+    @Override
+    public List<ShowMenu> getShowMenuByUser(String id) {
+        Map<String, Object> map = new HashMap();
+        map.put("userId", id);
+        map.put("parentId", "0");
+        return erpmenuMapper.selectShowMenuByUser(map);
     }
 }

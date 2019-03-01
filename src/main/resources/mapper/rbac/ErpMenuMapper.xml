@@ -41,4 +41,34 @@
             and rm.role_id = #{roleId}
         </if>
     </select>
+
+    <resultMap id="showMenuMap" type="com.chenyanwu.erp.erpframework.entity.vo.ShowMenu">
+        <result property="id" column="id"/>
+        <result property="pid" column="pid"/>
+        <result property="title" column="title"/>
+        <result property="icon" column="icon"/>
+        <result property="href" column="href"/>
+        <collection property="children" select="selectShowMenuByUser" column="{parentId = id,userId = myuserId}">
+        </collection>
+    </resultMap>
+
+    <select id="selectShowMenuByUser" resultMap="showMenuMap" parameterType="java.util.Map">
+        select distinct em.id as "id", em.parent_id as "pid", em.name as "title", em.icon,
+        em.url as "href",em.sort, #{userId} as "myuserId"
+        FROM erp_menu em
+        LEFT JOIN erp_role_menu erm on erm.menu_id = em.id
+        LEFT JOIN erp_role er on er.id = erm.role_id
+        LEFT JOIN erp_role_user eru on eru.role_id = er.id
+        LEFT JOIN erp_user eu on eu.id = eru.user_id
+        WHERE eu.id = #{userId}
+        <choose>
+            <when test="parentId != null and parentId !='' ">
+                and em.parent_id = #{parentId}
+            </when>
+            <otherwise>
+                and (em.parent_id is NULL or em.parent_id='')
+            </otherwise>
+        </choose>
+        order by em.sort
+    </select>
 </mapper>
