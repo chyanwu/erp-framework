@@ -70,7 +70,7 @@
     background-color: #000c17!important;
 }
 .custom-admin .layui-nav-child dd.layui-this a,.layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-nav-tree .layui-this, .layui-nav-tree .layui-this>a, .layui-nav-tree .layui-this>a:hover{
-    background-color: #177ce3;
+    background-color: #009688;
     background-repeat: repeat-y;
     background-image: -moz-linear-gradient(left,#29adeb,#177ce3);
     background-image: -webkit-linear-gradient(left,#29adeb,#177ce3);
@@ -158,7 +158,7 @@ html, body , .app-container{
 }
 
 .app-container .layui-tab-content{
-    position: absolute;
+    /*position: absolute;*/
     top: 40px;
     bottom: 0;
     left: 0;

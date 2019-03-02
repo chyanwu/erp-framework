@@ -10,11 +10,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
 
-    <!-- 加载进度条效果 -->
-    <link href="./plugins/pace/themes/pink/pace-theme-flash.css" rel="stylesheet"/>
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="./css/admin.css">
-    <script src="./plugins/pace/pace.min.js"></script>
     <script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
 
 </head>
@@ -32,8 +29,8 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">FallSea</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">帮助中心</a></dd>
-                    <dd><a href="login.html">退出</a></dd>
+                    <dd><a href="javascript:" id="btnUP">修改密码</a></dd>
+                    <dd><a href="/systemLogout" class="signOut">退出</a></dd>
                 </dl>
             </li>
         </ul>
@@ -55,12 +52,12 @@
 
     <div class="layui-body">
         <div class="layui-tab app-container fsTab" lay-filter="fsTab" lay-allowClose="true">
-            <ul id="fsTabMenu" class="layui-tab-title custom-tab">
-                <li class="layui-this"><i class="layui-icon">&#xe68e;</i><em>控制台</em><p class="layui-tab-close" style="display: none;"></p></li>
-            </ul>
+            <#--<ul id="fsTabMenu" class="layui-tab-title custom-tab">-->
+                <#--<li class="layui-this"><i class="layui-icon">&#xe68e;</i><em>控制台</em><p class="layui-tab-close" style="display: none;"></p></li>-->
+            <#--</ul>-->
             <div id="appTabPage" class="layui-tab-content">
                 <div class="layui-tab-item layui-show" lay-id="1">
-                    <iframe src="home/index" frameborder="0"></iframe>
+                    <iframe name="body" src="/home/index" frameborder="0"></iframe>
                 </div>
             </div>
         </div>
@@ -70,11 +67,43 @@
         <p>© 2017-2019 chenyanwu</p>
     </div>
 </div>
+<script type="text/html" id="upModel">
+    <form class="layui-form model-form" id="formPsw">
+        <div class="layui-form-item">
+            <label class="layui-form-label">原始密码:</label>
+            <div class="layui-input-block">
+                <input type="password" name="oldPsw" placeholder="请输入原始密码" class="layui-input"
+                       lay-verType="tips" lay-verify="required" required/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">新密码:</label>
+            <div class="layui-input-block">
+                <input type="password" name="newPsw" placeholder="请输入新密码" class="layui-input"
+                       lay-verType="tips" lay-verify="required|psw" required/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">确认密码:</label>
+            <div class="layui-input-block">
+                <input type="password" name="rePsw" placeholder="请再次输入新密码" class="layui-input"
+                       lay-verType="tips" lay-verify="required|repsw" required/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block text-right">
+                <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+                <button class="layui-btn" lay-filter="submitPsw" lay-submit>保存</button>
+            </div>
+        </div>
+    </form>
+</script>
 <script>
     layui.use(['layer', 'form', 'element'], function () {
         var $ = layui.jquery;
         var layer = layui.layer;
         var element = layui.element;
+        var form = layui.form;
 
         var showMenu = function(){
             layer.load(2);
@@ -82,11 +111,14 @@
                 layer.closeAll('loading');
                 if(res.code == 200) {
                     var menuTree = res.data;
-                    if(!isEmpty(menuTree)){
+                    if(menuTree.length > 0){
                         var fsLeftMenu = $("#fsLeftMenu");
                         //一级菜单处理，头部导航菜单
                         $(menuTree).each(function(i1,v){
                             var menuRow = '<li class="layui-nav-item';
+                            if(!isEmpty(v.href) && v.href == '/home/index'){//默认选中处理
+                                menuRow += ' layui-this';
+                            }
                             menuRow += '" lay-id="'+ v.id +'"><a href="javascript:;" menuId="'+ v.id +'" dataUrl="'+ v.href +'">';
                             if(v.icon != null && v.icon != ''){
                                 if(v.icon.indexOf("icon-") !== -1){
@@ -127,22 +159,21 @@
         };
 
         var handleLeftMenuData = function(children){
-            var thisMenu = this;
             var content = "";
-            if(!isEmpty(children)){
+            if(children.length > 0){
 
                 content = '<dl class="layui-nav-child">';
                 $.each(children,function(i,v){
-                    var menuRow3 = '<dd';
-                    // if(!$.isEmpty(menuConfig.defaultSelectLeftMenuId) && menuConfig.defaultSelectLeftMenuId == v[menuConfig.menuIdField]){//默认选中处理
+                    // var menuRow3 = '<dd';
+                    // if(!isEmpty(v.href) && v.href == '/home/index'){//默认选中处理
                     //     menuRow3 += ' class="layui-this"';
                     // }
-                    menuRow3 += ' lay-id="'+ v.id +'"><a href="javascript:;" menuId="'+ v.id +'" dataUrl="'+ (!isEmpty(v.children) ? '' : v.href) +'">';
+                    var menuRow3 = '<dd lay-id="'+ v.id +'"><a href="javascript:;" menuId="'+ v.id +'" dataUrl="'+ (isEmpty(v.children) ? '' : v.href) +'">';
                     if(v.icon != null && v.icon != ''){
                         if(v.icon.indexOf("icon-") !== -1){
-                            menuRow += '<i class="iconfont '+ v.icon +'" style="font-size: 20px" data-icon="'+ v.icon +'"></i>';
+                            menuRow3 += '<i class="iconfont '+ v.icon +'" style="font-size: 20px" data-icon="'+ v.icon +'"></i>';
                         }else{
-                            menuRow += '<i class="layui-icon" style="font-size: 20px" data-icon="'+ v.icon +'">'+ v.icon +'</i>';
+                            menuRow3 += '<i class="layui-icon" style="font-size: 20px" data-icon="'+ v.icon +'">'+ v.icon +'</i>';
                         }
                     }
                     menuRow3 += ' <em>'+ v.title +'</em></a>';
@@ -188,8 +219,62 @@
                     layer.close(tipIndex);
                     tipIndex = null
                 }
-            })
-        }
+            });
+
+            // 侧边栏点击事件
+            $('*[dataurl]').click(function () {
+                var url = $(this).attr('dataurl');
+                if(url == '') {
+                    return;
+                }
+                $('#fsLeftMenu .layui-this').removeClass('layui-this');
+                var layId = $(this).parent().attr('lay-id');
+                if(!isEmpty(layId)){
+
+                    $('#fsLeftMenu .layui-nav-child>dd[lay-id="'+ layId +'"],#fsLeftMenu>li[lay-id="'+ layId +'"]').addClass('layui-this');
+
+                }
+                $('iframe[name=body]').attr('src', url);
+            });
+        };
+
+        // 修改密码
+        $('#btnUP').click(function () {
+            layer.open({
+                type: 1,
+                title: '修改密码',
+                area: '360px',
+                offset: '65px',
+                content: $('#upModel').html()
+            });
+        });
+
+        // 监听修改密码表单提交
+        form.on('submit(submitPsw)', function (d) {
+            layer.load(2);
+            $.post("/erpuser/updatepsw", d.field, function (res){
+                if(res.code == 200){
+                    layer.closeAll('loading');
+                    layer.closeAll('page');
+                    layer.msg('密码修改成功', {icon: 1, time: 1500}, function () {
+                        location.href = '/systemLogout';
+                    });
+                }else{
+                    layer.closeAll('loading');
+                    layer.msg(res.msg, {icon: 2});
+                }
+            });
+            return false;
+        });
+
+        // 添加表单验证方法
+        form.verify({
+            repsw: function (t) {
+                if (t !== $('#formPsw input[name=newPsw]').val()) {
+                    return '两次密码输入不一致';
+                }
+            }
+        });
 
     });
 </script>

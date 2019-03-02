@@ -204,4 +204,23 @@ return modelAndView;
         return new ResultBean<String>("");
     }
 
+    @RequestMapping(value = "/updatepsw",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultBean<String> updatePassword(String oldPsw, String newPsw) {
+//        User user = mapper.selectByPrimaryKey(MySysUser.id());
+
+        ErpUser user = new ErpUser();
+        //旧密码不能为空
+        String pw = ToolUtil.entryptPassword(oldPsw, user.getSalt()).split(",")[0];
+        if(!user.getPassword().equals(pw)){
+            return  new ResultBean<String>(ExceptionEnum.BUSINESS_ERROR, "原密码不正确", "原密码不正确", "");
+        }
+        user.setPassword(newPsw);
+        ToolUtil.entryptPassword(user);
+        if (service.updateByPrimaryKey(user) == 1) {
+            return new ResultBean<String>("");
+        }
+        return  new ResultBean<String>(ExceptionEnum.BUSINESS_ERROR, "修改密码失败", "修改密码失败", "");
+    }
+
 }
