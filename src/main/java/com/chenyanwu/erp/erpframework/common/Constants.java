@@ -21,4 +21,9 @@ public class Constants {
      * 生成Hash值的迭代次数
      */
     public static final int HASH_INTERATIONS = 1024;
+
+    /**
+     * 验证码
+     */
+    public static final String VALIDATE_CODE = "validateCode";
 }
