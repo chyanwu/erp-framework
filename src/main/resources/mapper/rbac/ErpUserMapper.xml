@@ -18,4 +18,33 @@
                                                             <result column="email" property="email" jdbcType="VARCHAR"/>
                     
     </resultMap>
+
+
+    <resultMap id="ResultMap" type="com.chenyanwu.erp.erpframework.entity.rbac.ErpUser" extends="BaseResultMap" >
+        <collection property="roles" ofType="com.chenyanwu.erp.erpframework.entity.rbac.ErpRole">
+            <result property="id" column="r.id"></result>
+            <result property="name" column="r.name"></result>
+        </collection>
+        <collection property="menus" ofType="com.chenyanwu.erp.erpframework.entity.rbac.ErpMenu">
+            <result property="id" column="m.id"/>
+            <result property="name" column="m.name"/>
+            <result property="permission" column="permission"/>
+        </collection>
+    </resultMap>
+
+    <select id="findUserByLoginName" parameterType="String" resultMap="ResultMap">
+        select u.id,u.login_name,u.name,u.password,u.salt,u.locked,u.enabled,r.id AS 'r.id',r.name AS 'r.name',m.id AS 'm.id',m.name As 'r.name',permission
+        from erp_user u
+        left join erp_role_user ru on ru.user_id=u.id
+        left join erp_role r on ru.role_id=r.id
+        left join erp_role_menu rm on rm.role_id=r.id
+        left join erp_menu m on m.id=rm.menu_id
+        <where>
+            <if test="loginName !=null and loginName !=''">
+                u.login_name = #{loginName}
+            </if>
+        </where>
+    </select>
+
+
 </mapper>

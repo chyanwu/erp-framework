@@ -44,21 +44,17 @@ public class SqlInterceptor implements Interceptor {
                 if (StringUtils.isNullOrEmpty(entity.getId())) {
                     entity.setId(TimeBasedUUIDGenerator.generateId().toString().replace("-", ""));
                 }
-                // todo 暂时先写死
-//                entity.setCreateBy(MDC.get("userid"));
-                entity.setCreateBy("chenyanwu");
+                entity.setCreateBy(MDC.get("userid"));
                 entity.setCreateDate(new Date());
                 entity.setCreateDate(new Date());
-//                entity.setUpdateBy(MDC.get("userid"));
-                entity.setUpdateBy("chenyanwu");
+                entity.setUpdateBy(MDC.get("userid"));
                 entity.setUpdateDate(new Date());
             }
             logger.info("新增记录{}：{}", parameter.getClass().getName(), JsonUtil.bean2Json(parameter));
         } else {//修改
             if (parameter instanceof BaseEntity) {
                 BaseEntity entity = (BaseEntity) parameter;
-//                entity.setUpdateBy(MDC.get("userid"));
-                entity.setUpdateBy("chenyanwu");
+                entity.setUpdateBy(MDC.get("userid"));
                 entity.setUpdateDate(new Date());
             }
             logger.info("修改记录{}：{}", parameter.getClass().getName(), JsonUtil.bean2Json(parameter));

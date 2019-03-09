@@ -12,9 +12,8 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<meta name="format-detection" content="telephone=no"/>
 
-    <link rel="stylesheet" type="text/css" href="../plugins/layui/css/layui.css"/>
-    <script type="text/javascript" src="../plugins/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="../plugins/layui/layui.js"></script>
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" media="all">
+    <script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
 
 </head>
 <body class="layui-view-body">

@@ -16,4 +16,11 @@ import java.util.List;
 */
 public interface ErpUserService extends BaseService<ErpUser, Object> {
     List<ErpUser> selectByExample(Object var1);
+
+    /**
+     * 通过登录名获取用户信息
+     * @param loginName
+     * @return
+     */
+    ErpUser findUserByLoginName(String loginName);
 }

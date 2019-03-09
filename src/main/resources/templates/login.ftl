@@ -36,7 +36,7 @@
         <#--<div class="layui-form-item">-->
             <#--<fieldset class="layui-elem-field">-->
                 <#--<div class="layui-field-box" style="color: #fff;font-size: 20px;">-->
-                    <#--用户名:test &nbsp;&nbsp;&nbsp;密码:1-->
+                    <#--用户名:admin &nbsp;&nbsp;&nbsp;密码:1-->
                 <#--</div>-->
             <#--</fieldset>-->
         <#--</div>-->

@@ -8,6 +8,10 @@ package com.chenyanwu.erp.erpframework.common;
  */
 public class Constants {
     /**
+     * shiro采用加密算法
+     */
+    public static final String HASH_ALGORITHM = "SHA-1";
+    /**
      *系统用户默认密码
      */
     public static final String DEFAULT_PASSWORD = "123456";

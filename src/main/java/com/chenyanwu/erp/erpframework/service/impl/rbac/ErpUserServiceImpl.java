@@ -34,4 +34,9 @@ super.setMapper(erpuserMapper);
     public List<ErpUser> selectByExample(Object var1) {
         return erpuserMapper.selectByExample(var1);
     }
+
+    @Override
+    public ErpUser findUserByLoginName(String loginName) {
+        return erpuserMapper.findUserByLoginName(loginName);
+    }
 }

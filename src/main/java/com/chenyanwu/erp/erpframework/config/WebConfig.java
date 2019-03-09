@@ -8,6 +8,7 @@ import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
@@ -41,6 +42,14 @@ public class WebConfig extends WebMvcConfigurationSupport {
         }
     }
 
+    // 注册连接器
+//    @Override
+//    protected void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new MyHandlerInterceptor())
+//                .addPathPatterns("/**").excludePathPatterns("/static/**", "/login", "/login/main", "/getCaptcha");
+//        super.addInterceptors(registry);
+//    }
+
     /**
      * 发现如果继承了WebMvcConfigurationSupport，则在yml中配置的相关内容会失效。
      * 需要重新指定静态资源
@@ -70,4 +79,9 @@ public class WebConfig extends WebMvcConfigurationSupport {
         // 百度，谷歌，各大论坛等。你可以试试去掉。
         addDefaultHttpMessageConverters(converters);
     }
+
+
+
+
+
 }

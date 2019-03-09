@@ -5,6 +5,10 @@ import com.chenyanwu.erp.erpframework.common.ResultBean;
 import com.chenyanwu.erp.erpframework.common.util.StringUtils;
 import com.chenyanwu.erp.erpframework.common.util.VerifyCodeUtil;
 import com.chenyanwu.erp.erpframework.exception.ExceptionEnum;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.UnauthorizedException;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,27 +71,29 @@ public class LoginController {
         if(StringUtils.isBlank(code) || !trueCode.toLowerCase().equals(code.toLowerCase())){
             error = "验证码错误";
         }else {
-            map.put("url","index");
-//            try {
-//                user.login(token);
-//                if (user.isAuthenticated()) {
-//                    map.put("url","index");
-//                }
-//            }catch (IncorrectCredentialsException e) {
-//                error = "登录密码错误.";
-//            } catch (ExcessiveAttemptsException e) {
-//                error = "登录失败次数过多";
-//            } catch (LockedAccountException e) {
-//                error = "帐号已被锁定.";
-//            } catch (DisabledAccountException e) {
-//                error = "帐号已被禁用.";
-//            } catch (ExpiredCredentialsException e) {
-//                error = "帐号已过期.";
-//            } catch (UnknownAccountException e) {
-//                error = "帐号不存在";
-//            } catch (UnauthorizedException e) {
-//                error = "您没有得到相应的授权！";
-//            }
+            /*就是代表当前的用户。*/
+            Subject user = SecurityUtils.getSubject();
+            UsernamePasswordToken token = new UsernamePasswordToken(username, password, Boolean.valueOf(rememberMe));
+            try {
+                user.login(token);
+                if (user.isAuthenticated()) {
+                    map.put("url","index");
+                }
+            }catch (IncorrectCredentialsException e) {
+                error = "登录密码错误.";
+            } catch (ExcessiveAttemptsException e) {
+                error = "登录失败次数过多";
+            } catch (LockedAccountException e) {
+                error = "帐号已被锁定.";
+            } catch (DisabledAccountException e) {
+                error = "帐号已被禁用.";
+            } catch (ExpiredCredentialsException e) {
+                error = "帐号已过期.";
+            } catch (UnknownAccountException e) {
+                error = "帐号不存在";
+            } catch (UnauthorizedException e) {
+                error = "您没有得到相应的授权！";
+            }
         }
         if(StringUtils.isBlank(error)){
             return new ResultBean(map) ;
@@ -109,5 +115,11 @@ public class LoginController {
         response.setContentType("image/jpeg");
         BufferedImage bufferedImage = VerifyCodeUtil.generateImageCode(verifyCode, 116, 36, 5, true, new Color(249, 205, 173), null, null);
         ImageIO.write(bufferedImage, "JPEG", response.getOutputStream());
+    }
+
+    @GetMapping("systemLogout")
+    public String logOut() {
+        SecurityUtils.getSubject().logout();
+        return "redirect:/login";
     }
 }
