@@ -9,6 +9,8 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +29,8 @@ import java.util.Map;
 
 @Controller
 public class LoginController {
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
     @GetMapping("/index")
     public ModelAndView index(ModelAndView modelAndView){
         return modelAndView;
@@ -38,8 +42,15 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public ModelAndView login(HttpServletRequest request, ModelAndView modelAndView){
-        return modelAndView;
+    public String login(HttpServletRequest request){
+        logger.info("当前的路径为：" + request.getRequestURI());
+        Subject s = SecurityUtils.getSubject();
+        logger.info("是否记住登录--》" + s.isRemembered() + "; 是否有权限登录" + s.isAuthenticated());
+        if(s.isAuthenticated()){
+            return "redirect:index";
+        }else {
+            return "login";
+        }
     }
 
     @PostMapping("login/main")
@@ -112,6 +123,7 @@ public class LoginController {
         response.setDateHeader("Expires", 0);
         String verifyCode = VerifyCodeUtil.generateTextCode(VerifyCodeUtil.TYPE_ALL_MIXED, 4, null);
         request.getSession().setAttribute(Constants.VALIDATE_CODE, verifyCode);
+        logger.info("本次生成的验证码为[" + verifyCode + "],已存放到HttpSession中");
         response.setContentType("image/jpeg");
         BufferedImage bufferedImage = VerifyCodeUtil.generateImageCode(verifyCode, 116, 36, 5, true, new Color(249, 205, 173), null, null);
         ImageIO.write(bufferedImage, "JPEG", response.getOutputStream());

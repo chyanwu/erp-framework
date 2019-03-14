@@ -18,7 +18,7 @@ import java.util.List;
 * @date 2019-02-27 11:14:41
 * @version
 */
-@Service
+@Service("erpUserService")
 public class ErpUserServiceImpl extends BaseServiceImpl<ErpUser, Object>
     implements ErpUserService {
 

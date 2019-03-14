@@ -28,8 +28,7 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    555555
-                    <#--<cite><#if currentUser.name!=''>${currentUser.name}<#else>${currentUser.loginName}</#if></cite>-->
+                    <cite><#if currentUser.name!=''>${currentUser.name}<#else>${currentUser.loginName}</#if></cite>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:" id="btnUP">修改密码</a></dd>

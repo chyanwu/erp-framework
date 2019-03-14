@@ -43,12 +43,13 @@ public class WebConfig extends WebMvcConfigurationSupport {
     }
 
     // 注册连接器
-//    @Override
-//    protected void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new MyHandlerInterceptor())
-//                .addPathPatterns("/**").excludePathPatterns("/static/**", "/login", "/login/main", "/getCaptcha");
-//        super.addInterceptors(registry);
-//    }
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new MyHandlerInterceptor())
+                .addPathPatterns("/**").excludePathPatterns("/static/**", "/assets/**", "/css/**", "/images/**", "/layui_ext/**",
+                    "/login", "/login/main", "/genCaptcha");
+        super.addInterceptors(registry);
+    }
 
     /**
      * 发现如果继承了WebMvcConfigurationSupport，则在yml中配置的相关内容会失效。

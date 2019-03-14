@@ -5,8 +5,10 @@ import com.chenyanwu.erp.erpframework.entity.MySysUser;
 import com.chenyanwu.erp.erpframework.entity.rbac.ErpUser;
 import com.chenyanwu.erp.erpframework.service.rbac.ErpUserService;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,11 +26,12 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
 
     @Autowired
     private ErpUserService erpUserService;
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if(StringUtils.isNullOrEmpty(MySysUser.loginName())) {
-            return false;
+        if(erpUserService == null) {
+            System.out.println("erpUserService is null!!!");
+            BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
+            erpUserService = (ErpUserService) factory.getBean("erpUserService");
         }
         ErpUser user = erpUserService.findUserByLoginName(MySysUser.loginName());
         if(user != null) {
