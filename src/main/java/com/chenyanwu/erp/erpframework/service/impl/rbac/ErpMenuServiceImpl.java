@@ -17,28 +17,27 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* <p>
-    *  服务实现类
-    * </p>
-*
-* @author chenyanwu
-* @date 2019-02-27 11:15:03
-* @version
-*/
+ * <p>
+ * 服务实现类
+ * </p>
+ *
+ * @author chenyanwu
+ * @date 2019-02-27 11:15:03
+ */
 @Service
 public class ErpMenuServiceImpl extends BaseServiceImpl<ErpMenu, Object>
-    implements ErpMenuService {
+        implements ErpMenuService {
 
-@Autowired
-private ErpMenuMapper erpmenuMapper;
+    @Autowired
+    private ErpMenuMapper erpmenuMapper;
 
-@Autowired
-private DtreeService dtreeService;
+    @Autowired
+    private DtreeService dtreeService;
 
-@Autowired
-public void setMapper() {
-super.setMapper(erpmenuMapper);
-}
+    @Autowired
+    public void setMapper() {
+        super.setMapper(erpmenuMapper);
+    }
 
     @Override
     public String getTreeMenuList(String roleId) {

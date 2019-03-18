@@ -10,25 +10,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 /**
-* <p>
-    *  服务实现类
-    * </p>
-*
-* @author chenyanwu
-* @date 2019-02-27 17:28:29
-* @version
-*/
+ * <p>
+ * 服务实现类
+ * </p>
+ *
+ * @author chenyanwu
+ * @date 2019-02-27 17:28:29
+ */
 @Service
 public class ErpRoleUserServiceImpl extends BaseServiceImpl<ErpRoleUser, Object>
-    implements ErpRoleUserService {
+        implements ErpRoleUserService {
 
-@Autowired
-private ErpRoleUserMapper erproleuserMapper;
+    @Autowired
+    private ErpRoleUserMapper erproleuserMapper;
 
-@Autowired
-public void setMapper() {
-super.setMapper(erproleuserMapper);
-}
+    @Autowired
+    public void setMapper() {
+        super.setMapper(erproleuserMapper);
+    }
 
     @Override
     public List<ErpRoleUser> selectByExample(Object var1) {

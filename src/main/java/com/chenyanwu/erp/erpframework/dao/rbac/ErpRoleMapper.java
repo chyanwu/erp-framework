@@ -13,7 +13,6 @@ import tk.mybatis.mapper.common.special.InsertListMapper;
 * @date 2019-02-21 17:39:55
 * @version
 */
-//@org.apache.ibatis.annotations.Mapper
 public interface ErpRoleMapper extends Mapper<ErpRole>,InsertListMapper<ErpRole> {
 
 
