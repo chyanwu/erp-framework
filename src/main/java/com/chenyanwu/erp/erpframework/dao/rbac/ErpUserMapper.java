@@ -4,7 +4,7 @@ import java.util.List;
 import com.chenyanwu.erp.erpframework.entity.rbac.ErpUser;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
-import tk.mybatis.mapper.common.special.InsertListMapper;
+import tk.mybatis.mapper.additional.insert.InsertListMapper;
 
 /**
 * <p>
