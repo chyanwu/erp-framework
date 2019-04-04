@@ -1,5 +1,6 @@
 package com.chenyanwu.erp.erpframework.config;
 
+import cn.hutool.core.util.IdUtil;
 import com.chenyanwu.erp.erpframework.common.util.JsonUtil;
 import com.chenyanwu.erp.erpframework.common.util.StringUtils;
 import com.chenyanwu.erp.erpframework.common.util.TimeBasedUUIDGenerator;
@@ -42,7 +43,7 @@ public class SqlInterceptor implements Interceptor {
             if (parameter instanceof BaseEntity) {
                 BaseEntity entity = (BaseEntity) parameter;
                 if (StringUtils.isNullOrEmpty(entity.getId())) {
-                    entity.setId(TimeBasedUUIDGenerator.generateId().toString().replace("-", ""));
+                    entity.setId(IdUtil.simpleUUID());
                 }
                 entity.setCreateBy(MDC.get("userid"));
                 entity.setCreateDate(new Date());

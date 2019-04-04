@@ -31,7 +31,6 @@ public class FramedbConfig {
 
     @Bean(name = "framedbDataSource")
     @ConfigurationProperties(prefix = "first.spring.datasource")
-
     public DataSource framedbDataSource() {
         return new DruidDataSource();
     }
@@ -60,13 +59,11 @@ public class FramedbConfig {
 
 
     @Bean(name = "framedbTransactionManager")
-
     public DataSourceTransactionManager testTransactionManager(@Qualifier("framedbDataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
     @Bean(name = "framedbSqlSessionTemplate")
-
     public SqlSessionTemplate testSqlSessionTemplate(@Qualifier("framedbSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory);
     }

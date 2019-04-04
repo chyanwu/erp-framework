@@ -18,13 +18,6 @@ layui.use(['layer', 'form', 'table', 'util', 'formSelects', 'admin'], function (
         // },
         page: true,
         cellMinWidth: 100,
-        response: {
-            statusName: 'code' //规定数据状态的字段名称，默认：code
-            ,statusCode: 200 //规定成功的状态码，默认：0
-            ,msgName: 'msg' //规定状态信息的字段名称，默认：msg
-            ,countName: 'count' //规定数据总数的字段名称，默认：count
-            ,dataName: 'data' //规定数据列表的字段名称，默认：data
-        },
         cols: [[
             {type: 'numbers'},
             {field: 'loginName', title: '账号'},
@@ -48,8 +41,17 @@ layui.use(['layer', 'form', 'table', 'util', 'formSelects', 'admin'], function (
             {field: 'state', templet: '#tbaleState', title: '状态', unresize: true, width: 100},
             {align: 'center', toolbar: '#tableBar', title: '操作', unresize: true, width: 200}
         ]],
-        // skin: 'line',
-        // size: 'lg',
+        response: {
+            statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+        },
+        parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
+            return {
+                "code": res.code, //解析接口状态
+                "msg": res.msg, //解析提示文本
+                "count": res.total, //解析数据长度
+                "data": res.data //解析数据列表
+            };
+        },
         done: function () {
             layer.closeAll('loading');
         }

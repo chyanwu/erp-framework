@@ -7,6 +7,7 @@ layui.config({
         $ = layui.jquery,
         admin = layui.admin,
         form = layui.form;
+    var util = layui.util;
 
     var setTree = function(data){
         treetable.render({
@@ -28,7 +29,11 @@ layui.config({
                 {field: 'permission', title: '权限标识', width: 120},
                 {field: 'level', title: '层次', width: 80},
                 {field: 'sort', title: '排序', width: 80},
-                {field: 'createDate', title: '创建时间'},
+                {
+                    templet: function (d) {
+                        return util.toDateString(d.createDate);
+                    }, title: '创建时间'
+                },
                 // {field: 'id', title: 'id'},
                 // {field: 'parentId', title: 'parentId'},
                 {

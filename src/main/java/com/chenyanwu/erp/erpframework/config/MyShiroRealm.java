@@ -36,6 +36,7 @@ public class MyShiroRealm extends AuthorizingRealm {
     // 登录认证
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        System.out.println("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
         // 当前登录信息
         ShiroUser shiroUser = (ShiroUser) principalCollection.getPrimaryPrincipal();
         // 查询当前用户
@@ -74,9 +75,13 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
         byte[] salt = Encodes.decodeHex(user.getSalt());
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
+                // 用户信息
                 new ShiroUser(user.getId(), user.getLoginName(),
                         user.getName()),
-                user.getPassword(), ByteSource.Util.bytes(salt),
+                //密码
+                user.getPassword(),
+                // 盐值
+                ByteSource.Util.bytes(salt),
                 //realm name
                 getName());
         return authenticationInfo;
