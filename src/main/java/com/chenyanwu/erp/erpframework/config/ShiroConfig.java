@@ -1,5 +1,6 @@
 package com.chenyanwu.erp.erpframework.config;
 
+import com.chenyanwu.erp.erpframework.common.util.StringUtils;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -119,7 +120,7 @@ public class ShiroConfig {
      * @return
      */
     @Bean
-    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
+    public static LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
         return new LifecycleBeanPostProcessor();
     }
 
@@ -206,8 +207,10 @@ public class ShiroConfig {
         RedisManager redisManager = new RedisManager();
         logger.info("redis host:" + jedisHost);
         logger.info("redis port:" + jedisPort);
-//        redisManager.setHost(jedisHost + ":" + jedisPort);
-//        redisManager.setPassword(jedisPassword);
+        redisManager.setHost(jedisHost + ":" + jedisPort);
+        // 解决 redis.clients.jedis.exceptions.JedisDataException: ERR Client sent AUTH, but no password is set
+        // 1、在redis的config文档中设置 requirepass的密码  2、判断处理，当没有设置密码就给null
+        redisManager.setPassword(StringUtils.isNullOrEmpty(jedisPassword) ? null : jedisPassword);
         return redisManager;
     }
 
