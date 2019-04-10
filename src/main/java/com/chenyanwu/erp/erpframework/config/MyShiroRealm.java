@@ -19,7 +19,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Auther: chenyanwu
@@ -52,7 +54,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         List<ErpMenu> menus = user.getMenus();
         for(ErpMenu menu: menus) {
             if(StringUtils.isNotBlank(menu.getPermission())) {
-                simpleAuthorizationInfo.addRole(menu.getPermission());
+                simpleAuthorizationInfo.addStringPermission(menu.getPermission());
             }
         }
         return simpleAuthorizationInfo;
