@@ -7,21 +7,22 @@ import com.chenyanwu.erp.erpframework.common.util.ToolUtil;
 import com.chenyanwu.erp.erpframework.entity.MySysUser;
 import com.chenyanwu.erp.erpframework.entity.rbac.ErpRole;
 import com.chenyanwu.erp.erpframework.entity.rbac.ErpRoleUser;
+import com.chenyanwu.erp.erpframework.entity.rbac.ErpUser;
 import com.chenyanwu.erp.erpframework.exception.BusinessException;
 import com.chenyanwu.erp.erpframework.exception.ExceptionEnum;
 import com.chenyanwu.erp.erpframework.service.rbac.ErpRoleService;
 import com.chenyanwu.erp.erpframework.service.rbac.ErpRoleUserService;
+import com.chenyanwu.erp.erpframework.service.rbac.ErpUserService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import com.chenyanwu.erp.erpframework.service.rbac.ErpUserService;
-import com.chenyanwu.erp.erpframework.entity.rbac.ErpUser;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
@@ -39,7 +40,6 @@ import java.util.List;
 @RequestMapping(value = "/erpuser")
 public class ErpUserController {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private ErpUserService service;
 
@@ -112,13 +112,7 @@ public class ErpUserController {
         item.setEnabled(1);
         String[] split = roleIds.split(",");
         if (service.insertSelective(item) == 1) {
-            List<ErpRoleUser> roleUsers = new ArrayList<>();
-            for (String roleId : split) {
-                ErpRoleUser roleUser = new ErpRoleUser();
-                roleUser.setUserId(item.getId());
-                roleUser.setRoleId(roleId);
-                roleUsers.add(roleUser);
-            }
+            List<ErpRoleUser> roleUsers = combineRoleUsers(split, item.getId());
             if (roleUserService.insertList(roleUsers) < 1) {
                 throw new BusinessException("501", "添加失败");
             }
@@ -127,19 +121,25 @@ public class ErpUserController {
         return new ResultBean<String>(ExceptionEnum.BUSINESS_ERROR, "添加失败", "", "");
     }
 
+    public List<ErpRoleUser> combineRoleUsers(String[] split, String id) {
+        List<ErpRoleUser> roleUsers = new ArrayList<>();
+        for (String roleId : split) {
+            ErpRoleUser roleUser = new ErpRoleUser();
+            roleUser.setUserId(id);
+            roleUser.setRoleId(roleId);
+            roleUsers.add(roleUser);
+        }
+        return roleUsers;
+    }
+
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public ResultBean<String> update(@Validated ErpUser item, String roleIds) {
         service.updateByPrimaryKeySelective(item);
         String[] split = roleIds.split(",");
         if (service.updateByPrimaryKeySelective(item) == 1) {
-            List<ErpRoleUser> roleUsers = new ArrayList<>();
-            for (String roleId : split) {
-                ErpRoleUser roleUser = new ErpRoleUser();
-                roleUser.setUserId(item.getId());
-                roleUser.setRoleId(roleId);
-                roleUsers.add(roleUser);
-            }
+            List<ErpRoleUser> roleUsers = combineRoleUsers(split, item.getId());
+
             Example ruExample = new Example(ErpRoleUser.class);
             ruExample.createCriteria().andEqualTo("userId", item.getId());
             roleUserService.deleteByExample(ruExample);

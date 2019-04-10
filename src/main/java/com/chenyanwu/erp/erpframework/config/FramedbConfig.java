@@ -37,7 +37,6 @@ public class FramedbConfig {
 
 
     @Bean(name = "framedbSqlSessionFactory")
-
     public SqlSessionFactory testSqlSessionFactory(@Qualifier("framedbDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setPlugins(new Interceptor[]{ sqlInterceptor});

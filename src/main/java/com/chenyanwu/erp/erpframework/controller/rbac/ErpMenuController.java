@@ -1,21 +1,16 @@
 package com.chenyanwu.erp.erpframework.controller.rbac;
 
-import com.chenyanwu.erp.erpframework.common.PageResultBean;
 import com.chenyanwu.erp.erpframework.common.ResultBean;
 import com.chenyanwu.erp.erpframework.entity.MySysUser;
+import com.chenyanwu.erp.erpframework.entity.rbac.ErpMenu;
 import com.chenyanwu.erp.erpframework.entity.vo.ShowMenu;
 import com.chenyanwu.erp.erpframework.exception.ExceptionEnum;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.chenyanwu.erp.erpframework.service.rbac.ErpMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import com.chenyanwu.erp.erpframework.service.rbac.ErpMenuService;
-import com.chenyanwu.erp.erpframework.entity.rbac.ErpMenu;
 
 import java.util.List;
 
@@ -30,7 +25,6 @@ import java.util.List;
 @RequestMapping(value = "/erpmenu")
 public class ErpMenuController {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private ErpMenuService service;
 
@@ -117,7 +111,7 @@ public class ErpMenuController {
     @GetMapping("/getUserMenu")
     @ResponseBody
     public ResultBean<List<ShowMenu>> getUserMenu() {
-        String userId = MySysUser.id();//shiro有一个Util是可以拿到新用户信息的，不需要MySysUser
+        String userId = MySysUser.id();
         List<ShowMenu> list = service.getShowMenuByUser(userId);
         return new ResultBean<List<ShowMenu>>(list);
     }
