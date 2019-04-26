@@ -8,21 +8,17 @@ import java.util.List;
  * @Description: 使用模板模型，定义导入的通用类
  * @Version 1.0
  */
-public abstract class ImportTemplate<T> {
+public interface ImportTemplate<T, E> {
     /**
      * 导入功能需要返回结果，例如校验数据后，返回
      * @param list
      * @return
      */
-    public Object importDataReturn(List<T> list) {
-        return new Object();
-    }
+    T importDataReturn(List<E> list);
 
     /**
      * 导入功能不需要返回结果
      * @param list
      */
-    public void importDataNoReturn(List<T> list) {
-
-    }
+    void importDataNoReturn(List<E> list);
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenyanwu.erp.erpframework.dao.importutil.ErpStudentExcelMapper">
+    <resultMap id="BaseResultMap" type="com.chenyanwu.erp.erpframework.entity.importutil.ErpStudentExcel">
+        <id column="id" property="id" jdbcType="CHAR"/>
+
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="reason" property="reason" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="DATE"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="update_date" property="updateDate" jdbcType="DATE"/>
+
+    </resultMap>
+
+    <delete id="batchDel">
+        delete from erp_student_excel
+        where id in
+        <foreach collection="list" item="erpStudentExcel" index="index" open="(" close=")" separator=",">
+            #{erpStudentExcel.id}
+        </foreach>
+    </delete>
+</mapper>
