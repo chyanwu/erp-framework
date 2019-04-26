@@ -3,7 +3,7 @@ package ${mapperPackage};
 import java.util.List;
 import ${entityPackage}.${beanName};
 import tk.mybatis.mapper.common.Mapper;
-import tk.mybatis.mapper.additional.insert.InsertListMapper
+import tk.mybatis.mapper.additional.insert.InsertListMapper;
 
 /**
 * <p>
@@ -13,7 +13,6 @@ import tk.mybatis.mapper.additional.insert.InsertListMapper
 * @date ${dateTime}
 * @version
 */
-@org.apache.ibatis.annotations.Mapper
 public interface ${beanName}Mapper extends Mapper<${beanName}>,InsertListMapper<${beanName}> {
 
 

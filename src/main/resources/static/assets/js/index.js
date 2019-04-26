@@ -129,11 +129,10 @@ layui.use(['layer', 'form', 'element'], function () {
             $('#fsLeftMenu .layui-this').removeClass('layui-this');
             var layId = $(this).parent().attr('lay-id');
             if(!isEmpty(layId)){
-
                 $('#fsLeftMenu .layui-nav-child>dd[lay-id="'+ layId +'"],#fsLeftMenu>li[lay-id="'+ layId +'"]').addClass('layui-this');
-
             }
             $('iframe[name=body]').attr('src', url);
+            window.sessionStorage.setItem("href", url);  //当前打开的url
         });
     };
 
@@ -174,5 +173,13 @@ layui.use(['layer', 'form', 'element'], function () {
             }
         }
     });
+
+    // 当界面刷新，则需要显示到当前打开的界面
+    if(window.sessionStorage.getItem("href") != null){
+        var href = window.sessionStorage.getItem("href");
+        if(href != '/home/index') {
+            $('iframe[name=body]').attr('src', href);
+        }
+    }
 
 });

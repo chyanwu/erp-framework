@@ -64,9 +64,9 @@ public class AutoGeneratorUtil {
     public static void main(String[] args) throws Exception {
 
         //注意：一定要指定下划线，目的是为了下面截取出模块名;在此处修改对应的表名来生成代码
-        String tableNamePattern = "erp_role_user";
+        String tableNamePattern = "erp_student_excel";
         //  设置对应的代码属于哪个功能模块
-        String childPackage = "rbac";
+        String childPackage = "importutil";
         //设置模块名
 //        int index = tableNamePattern.indexOf("_");
 //        if (index > 0) {
@@ -105,7 +105,7 @@ public class AutoGeneratorUtil {
 
                 // 生成Controller层的代码
 //                String controllerDir = configure.getTargetDir().replace("/erp-dao//src", "/erp-web///src");
-//                generator.generateWebController(configure.getTargetDir(), table);
+                generator.generateWebController(configure.getTargetDir(), table);
 
                 // 生成界面的代码
 //                String pagetemplateDir = configure.getTargetDir().replace("/core/src/main/java", "/webapp/src/main/resources/templates");
