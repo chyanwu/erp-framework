@@ -44,6 +44,9 @@
 </div>
 <script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
 <script>
+    if (window != top){
+        top.location.href = location.href;
+    }
     layui.use(['layer', 'form'], function() {
         var layer = layui.layer,
             $ = layui.jquery,

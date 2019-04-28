@@ -51,6 +51,7 @@ public class ErpStudentServiceImpl extends BaseServiceImpl<ErpStudent, Object>
         return erpstudentMapper.selectByExample(var1);
     }
 
+    @Override
     public int importDataByForkJoin(List<StudentExcelImport> list) {
         batchDel();
 
