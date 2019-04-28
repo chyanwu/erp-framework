@@ -18,6 +18,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 
 /**
  * <p>
@@ -29,7 +30,7 @@ import java.util.List;
  */
 @Service
 public class ErpStudentServiceImpl extends BaseServiceImpl<ErpStudent, Object>
-        implements ErpStudentService {
+        implements ErpStudentService, ImportTemplate<Integer, StudentExcelImport> {
 
     private final Logger logger = LoggerFactory.getLogger(ErpStudentServiceImpl.class);
 
@@ -50,13 +51,29 @@ public class ErpStudentServiceImpl extends BaseServiceImpl<ErpStudent, Object>
         return erpstudentMapper.selectByExample(var1);
     }
 
+    public int importDataByForkJoin(List<StudentExcelImport> list) {
+        batchDel();
+
+        ForkJoinPool pool = new ForkJoinPool();
+        ImportTask task = new ImportTask(list, 0, list.size() -1);
+        long start = System.currentTimeMillis();
+        logger.info("导入开始，时间为:" + start);
+        pool.submit(task);
+        int errorCounts = task.join();
+        long end = System.currentTimeMillis();
+        logger.info("导入结束，时间为：" + end + "；总耗时为:" + (end - start));
+        return errorCounts;
+    }
+
+
     @Override
     @Transactional(rollbackFor = BusinessException.class)
-    public Integer importDataReturn(List<StudentExcelImport> list) {
+    public Integer importDataReturn(List<StudentExcelImport> list, int fromIndex, int toIndex) {
         int errorCounts = 0;
         List<ErpStudent> erpStudents = new ArrayList<>();
         List<ErpStudentExcel> erpStudentExcels = new ArrayList<>();
-        for (StudentExcelImport data : list) {
+        for(int i=fromIndex; i<=toIndex; i++) {
+            StudentExcelImport data = list.get(i);
             StringBuffer errorReason = varifyImport(data);
             if (errorReason.toString().equals("")) {
                 ErpStudent erpStudent = new ErpStudent();
@@ -77,10 +94,6 @@ public class ErpStudentServiceImpl extends BaseServiceImpl<ErpStudent, Object>
 
         if (erpStudents.size() > 0) {
             erpstudentMapper.insertList(erpStudents);
-        }
-        List<ErpStudentExcel> ErpStudentExcelsTab = excelMapper.selectAll();
-        if (ErpStudentExcelsTab.size() > 0) {
-            excelMapper.batchDel(ErpStudentExcelsTab);
         }
 
         if (erpStudentExcels.size() > 0) {
@@ -106,6 +119,17 @@ public class ErpStudentServiceImpl extends BaseServiceImpl<ErpStudent, Object>
         return errorReason;
     }
 
+    /**
+     * 先清除导入的错误数据.
+     */
+    public void batchDel(){
+        List<ErpStudentExcel> ErpStudentExcelsTab = excelMapper.selectAll();
+        if (ErpStudentExcelsTab.size() > 0) {
+            excelMapper.batchDel(ErpStudentExcelsTab);
+        }
+
+    }
+
     @Override
     public List<StudentExcelImport> findStudentErrorExcel() {
         List<ErpStudentExcel> erpStudentExcels = excelMapper.selectAll();
@@ -122,7 +146,7 @@ public class ErpStudentServiceImpl extends BaseServiceImpl<ErpStudent, Object>
     }
 
     @Override
-    public void importDataNoReturn(List<StudentExcelImport> list) {
+    public void importDataNoReturn(List<StudentExcelImport> list, int fromIndex, int toIndex) {
 
     }
 }

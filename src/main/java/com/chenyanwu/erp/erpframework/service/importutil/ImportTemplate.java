@@ -14,11 +14,11 @@ public interface ImportTemplate<T, E> {
      * @param list
      * @return
      */
-    T importDataReturn(List<E> list);
+    T importDataReturn(List<E> list, int fromIndex, int toIndex);
 
     /**
      * 导入功能不需要返回结果
      * @param list
      */
-    void importDataNoReturn(List<E> list);
+    void importDataNoReturn(List<E> list, int fromIndex, int toIndex);
 }

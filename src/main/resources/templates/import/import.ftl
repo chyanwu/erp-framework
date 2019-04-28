@@ -45,7 +45,6 @@
         laydate = layui.laydate;
         upload = layui.upload;
         table.render({
-            limit: 30,
             elem: '#excel_table',
             url: getListUrl,
             title: '信息',
@@ -61,11 +60,11 @@
             , response: {
                 statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
             }
-            , parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
+            ,parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
                 return {
                     "code": res.code, //解析接口状态
-                    "msg": res.message, //解析提示文本
-                    "count": res.count, //解析数据长度
+                    "msg": res.msg, //解析提示文本
+                    "count": res.total, //解析数据长度
                     "data": res.data //解析数据列表
                 };
             }

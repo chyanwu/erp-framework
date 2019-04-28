@@ -15,9 +15,10 @@ import java.util.List;
 * @date 2019-04-26 12:37:18
 * @version
 */
-public interface ErpStudentService extends BaseService<ErpStudent, Object>, ImportTemplate<Integer, StudentExcelImport> {
+public interface ErpStudentService extends BaseService<ErpStudent, Object>{
     List<ErpStudent> selectByExample(Object var1);
 
     List<StudentExcelImport> findStudentErrorExcel();
 
+    int importDataByForkJoin(List<StudentExcelImport> list);
 }

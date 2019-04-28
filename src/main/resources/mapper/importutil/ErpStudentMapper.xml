@@ -2,11 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.chenyanwu.erp.erpframework.dao.importutil.ErpStudentMapper">
     <resultMap id="BaseResultMap" type="com.chenyanwu.erp.erpframework.entity.importutil.ErpStudent">
-                                                                                                                                                        <id column="id" property="id" jdbcType="CHAR"/>
-                                                                                    
-                                                                            <result column="address" property="address" jdbcType="VARCHAR"/>
-                                                                                        <result column="name" property="name" jdbcType="VARCHAR"/>
-                                                                                                                                                                    <result column="age" property="age" jdbcType="INTEGER"/>
-                    
+        <id column="id" property="id" jdbcType="CHAR"/>
+
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="DATE"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="update_date" property="updateDate" jdbcType="DATE"/>
+
     </resultMap>
 </mapper>

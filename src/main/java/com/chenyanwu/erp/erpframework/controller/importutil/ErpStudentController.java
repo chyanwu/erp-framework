@@ -137,7 +137,8 @@ public class ErpStudentController {
     public ResultBean<Integer> importExcel(@RequestParam("file") MultipartFile file) {
         List<StudentExcelImport> list = ExcelUtil.importExcel(file, 1, 1, StudentExcelImport.class);
         //验证数据，记录不对的数据，并把正确的数据插入deposit表
-        int errorCounts = service.importDataReturn(list);
+        int errorCounts = service.importDataByForkJoin(list);
+        logger.info("错误的记录数为：" + errorCounts);
         return new ResultBean<>(errorCounts);
     }
 

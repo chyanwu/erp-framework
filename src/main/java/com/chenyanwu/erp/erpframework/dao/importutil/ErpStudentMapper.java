@@ -10,7 +10,7 @@ import tk.mybatis.mapper.additional.insert.InsertListMapper;
     * </p>
 *
 * @author chenyanwu
-* @date 2019-04-26 12:37:18
+* @date 2019-04-28 14:14:49
 * @version
 */
 public interface ErpStudentMapper extends Mapper<ErpStudent>,InsertListMapper<ErpStudent> {

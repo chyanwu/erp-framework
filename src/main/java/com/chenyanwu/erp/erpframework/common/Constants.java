@@ -30,4 +30,9 @@ public class Constants {
      * 验证码
      */
     public static final String VALIDATE_CODE = "validateCode";
+
+    /**
+     * fork/join 阈值
+     */
+    public static final int THRESHOLD = 10;
 }
