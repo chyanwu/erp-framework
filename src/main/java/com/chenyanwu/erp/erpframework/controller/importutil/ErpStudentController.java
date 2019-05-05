@@ -4,6 +4,7 @@ import cn.hutool.core.util.IdUtil;
 import com.chenyanwu.erp.erpframework.common.PageResultBean;
 import com.chenyanwu.erp.erpframework.common.ResultBean;
 import com.chenyanwu.erp.erpframework.common.util.ExcelUtil;
+import com.chenyanwu.erp.erpframework.common.util.PDFUtil;
 import com.chenyanwu.erp.erpframework.entity.importutil.ErpSFamilyMember;
 import com.chenyanwu.erp.erpframework.entity.importutil.StudentExcelImport;
 import com.chenyanwu.erp.erpframework.entity.rbac.ErpRole;
@@ -24,8 +25,11 @@ import com.chenyanwu.erp.erpframework.entity.importutil.ErpStudent;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -181,5 +185,21 @@ public class ErpStudentController {
         //模拟从数据库获取需要导出的数据
         ExcelUtil.exportExcel(excellist, "学生信息导入表-错误数据", "sheet", StudentExcelImport.class, "学生信息-errorData" + ".xls", response);
 
+    }
+
+    @GetMapping("/htmltopdf")
+    @ResponseBody
+    public void htmlToPdf(HttpServletResponse resp, String id) {
+        Map<String,Object> data = new HashMap();
+        ErpStudent student = service.selectByPrimaryKey(id);
+        data.put("name", student.getName());
+        data.put("age", student.getAge());
+        data.put("address", student.getAddress());
+
+        List<ErpSFamilyMember> list = sFamilyMemberService.findFamilyMemberByStuId(id);
+        data.put("members", list);
+
+        String html = "template_freemarker_student.html";
+        PDFUtil.htmlToPdf(data, "测试", html, resp);
     }
 }

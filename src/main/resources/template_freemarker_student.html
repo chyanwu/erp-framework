@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"></meta>
+    <title>文档标题</title>
+    <style>
+        body {
+            font-family:SimHei;
+            text-align:center;
+        }
+
+        table
+        {
+            border-collapse:collapse;
+            border-spacing: 0;
+            width: 100%;
+        }
+
+        tr {
+            height: 50px;
+        }
+
+        .content td {
+            border: 1px solid black;
+        }
+
+    </style>
+</head>
+<body>
+<h1>
+    学生信息表
+</h1>
+<table borde=0>
+    <tr>
+        <td style="width: 100px;">
+        </td>
+        <td style="width: 80%;">
+        </td>
+        <td style="width: 80px;">
+            日期：
+        </td>
+        <td style="width: 120px;">
+        </td>
+    </tr>
+</table>
+<table class='content'>
+    <tr>
+        <td rowspan="3">
+            基本信息
+        </td>
+        <td>
+            姓名
+        </td>
+        <td colspan="2">
+            <#if name??>
+            ${name}
+        </#if>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            年龄
+        </td>
+        <td colspan="2">
+            <#if age??>
+            ${age}
+        </#if>
+        </td>
+    </tr>
+    <tr>age
+        <td>
+            地址
+        </td>
+        <td colspan="2">
+            <#if address??>
+            ${address}
+        </#if>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="5">
+            家庭成员
+        </td>
+        <td>
+            成员关系
+        </td>
+        <td>
+            成员姓名
+        </td>
+        <td>
+            成员工作
+        </td>
+    </tr>
+
+    <#if (members?? && members?size>0) >
+    <#list members as member>
+    <tr>
+        <td>
+            <#if member.relation??>
+            <#if member.relation = 1>
+            爸爸
+            <#elseif member.relation = 2>
+            妈妈
+            <#elseif member.relation = 3>
+            爷爷
+            <#elseif member.relation = 4>
+            奶奶
+            <#else>
+            其他
+        </#if>
+    </#if>
+    </td>
+    <td>
+        <#if member.name??>
+        ${member.name}
+    </#if>
+    </td>
+    <td>
+        <#if member.job??>
+        ${member.job}
+    </#if>
+    </td>
+    </tr>
+</#list>
+</#if>
+
+<#if (members?size<4) >
+<#list 1..4-members?size as i>
+<tr>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+</tr>
+</#list>
+</#if>
+<tr>
+    <td colspan="4" style="text-align: left;font-weight: bold;">
+        郑重承诺:上述信息经我部门认真审核并确认无误。
+    </td>
+</tr>
+</table>
+<table borde=0>
+    <tr>
+        <td style="width: 120px;">
+            签收人：
+        </td>
+        <td style="width: 60%;">
+        </td>
+        <td style="width: 100px;">
+            签收日期：
+        </td>
+        <td style="width: 10%;">
+        </td>
+        <td style="width: 10%;">
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -66,8 +66,14 @@ layui.use(['layer', 'form', 'table', 'util', 'formSelects', 'admin'], function (
             showEditModel(data);
         } else if (obj.event === 'del') { // 删除
             doDelete(obj);
+        } else if (obj.event === 'export') { // 导出
+            exportPdf(data);
         }
     });
+
+    function exportPdf(data) {
+        window.open('/erpstudent/htmltopdf?id=' + data.id,'target','');
+    }
 
     // 删除
     function doDelete(obj) {

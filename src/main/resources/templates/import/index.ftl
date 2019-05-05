@@ -44,6 +44,7 @@
 <script type="text/html" id="tableBar">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="export">导出</a>
 </script>
 <!-- 表格操作列 -->
 <script type="text/html" id="tableMemberBar">
