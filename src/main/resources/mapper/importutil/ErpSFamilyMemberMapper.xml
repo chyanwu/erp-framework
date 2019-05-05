@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenyanwu.erp.erpframework.dao.importutil.ErpSFamilyMemberMapper">
+    <resultMap id="BaseResultMap" type="com.chenyanwu.erp.erpframework.entity.importutil.ErpSFamilyMember">
+                                                                                                            
+                                                <result column="stud_id" property="studId" jdbcType="CHAR"/>
+                                                            <result column="name" property="name" jdbcType="VARCHAR"/>
+                                                            <result column="id" property="id" jdbcType="CHAR"/>
+                                                            <result column="job" property="job" jdbcType="VARCHAR"/>
+                                                            <result column="relation" property="relation" jdbcType="TINYINT"/>
+                    
+    </resultMap>
+</mapper>

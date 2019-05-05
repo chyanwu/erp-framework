@@ -74,6 +74,47 @@ layui.define(['jquery', 'formSelects'], function (exports) {
         }, opt.timeout);
     };
 
+    // 交集
+    intersection = function(arr1, arr2, key) {
+        var tmpArr = [];
+        for(var i=0;i<arr1.length;i++){
+            for(var j=0;j<arr2.length;j++){
+                var arr = arr2[j];
+                if(arr1[i].id == eval('arr.' + key)){
+                    tmpArr.push(arr1[i]);
+                }
+            }
+        }
+        return tmpArr;
+    };
+
+    // 差集
+    difference = function(arr1, arr2, key) {
+        var tmpArr = [];
+        for(var i=0;i<arr1.length;i++){
+            var flag = true;
+            for(var j=0;j<arr2.length;j++){
+                var arr = arr2[j];
+                if(arr1[i].id == eval('arr.' + key)){
+                    flag = false;
+                }
+            }
+            if(flag){
+                tmpArr.push(arr1[i]);
+            }
+        }
+        return tmpArr;
+    };
+
+    // 按ID排序
+    arraySort = function(arr) {
+        arr.sort(function(a,b){
+            if(a.id>b.id) return 1 ;
+            if(a.id<b.id) return -1 ;
+            return 0 ;
+        });
+    };
+
     window.addShow = function (title, url) {
         if (title == null || title === '') {
             title = false;

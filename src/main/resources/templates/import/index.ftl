@@ -21,7 +21,7 @@
             <div style="display: inline-block;width: 100px;margin-right: 10px;">
                 <select id="sltKey">
                     <option value="">搜索条件</option>
-                    <option value="name">用户名</option>
+                    <option value="name">姓名</option>
                 </select>
             </div>
             <div style="display: inline-block;margin-right: 10px;width: 160px;">
@@ -43,6 +43,11 @@
 <!-- 表格操作列 -->
 <script type="text/html" id="tableBar">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<!-- 表格操作列 -->
+<script type="text/html" id="tableMemberBar">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <!-- 表单弹窗 -->
@@ -70,9 +75,45 @@
                        lay-verify="required" required/>
             </div>
         </div>
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>家庭成员</legend>
+        </fieldset>
+        <div style="margin-left: 10px;">
+            <button class="layui-btn layui-btn-sm" type="button" id="addMemberButton">新增</button>
+            <table class="layui-table" id="memberTable" lay-filter="memberTable"></table>
+        </div>
+
         <div class="layui-form-item text-right">
             <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
             <button class="layui-btn" lay-filter="formSubmit" lay-submit>保存</button>
+        </div>
+    </form>
+</script>
+<!-- 表单弹窗 -->
+<script type="text/html" id="memberForm">
+    <form lay-filter="memberForm" class="layui-form model-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">成员关系</label>
+            <div class="layui-input-block">
+                <select name="relation" id="relation" lay-filter="relation" lay-search="" lay-verify="required" required></select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">成员姓名</label>
+            <div class="layui-input-block">
+                <input name="name" placeholder="请输入姓名" type="text" class="layui-input" maxlength="20" lay-verify="required" required/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">成员工作</label>
+            <div class="layui-input-block">
+                <input name="job" placeholder="请输入工作" type="text" class="layui-input" maxlength="50" lay-verify="required" required/>
+            </div>
+        </div>
+        <div class="layui-form-item text-right">
+            <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+            <button class="layui-btn" lay-filter="memberFormSubmit" lay-submit>保存</button>
         </div>
     </form>
 </script>

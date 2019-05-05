@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import com.chenyanwu.erp.erpframework.entity.BaseEntity;
 
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -41,6 +42,18 @@ public class ErpStudent extends BaseEntity implements Serializable {
     @Column(name = "age")
     private Integer age;
 
+    /**
+     * 家庭成员
+     */
+    private List<ErpSFamilyMember> erpSFamilyMemberList;
+
+    public List<ErpSFamilyMember> getErpSFamilyMemberList() {
+        return erpSFamilyMemberList;
+    }
+
+    public void setErpSFamilyMemberList(List<ErpSFamilyMember> erpSFamilyMemberList) {
+        this.erpSFamilyMemberList = erpSFamilyMemberList;
+    }
 
     public String getAddress() {
         return address;

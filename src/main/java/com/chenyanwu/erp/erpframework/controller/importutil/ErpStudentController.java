@@ -1,11 +1,14 @@
 package com.chenyanwu.erp.erpframework.controller.importutil;
 
+import cn.hutool.core.util.IdUtil;
 import com.chenyanwu.erp.erpframework.common.PageResultBean;
 import com.chenyanwu.erp.erpframework.common.ResultBean;
 import com.chenyanwu.erp.erpframework.common.util.ExcelUtil;
+import com.chenyanwu.erp.erpframework.entity.importutil.ErpSFamilyMember;
 import com.chenyanwu.erp.erpframework.entity.importutil.StudentExcelImport;
 import com.chenyanwu.erp.erpframework.entity.rbac.ErpRole;
 import com.chenyanwu.erp.erpframework.exception.ExceptionEnum;
+import com.chenyanwu.erp.erpframework.service.importutil.ErpSFamilyMemberService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
@@ -39,6 +42,8 @@ public class ErpStudentController {
     Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private ErpStudentService service;
+    @Autowired
+    private ErpSFamilyMemberService sFamilyMemberService;
 
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
@@ -57,7 +62,7 @@ public class ErpStudentController {
     @ResponseBody
     public PageResultBean<List<ErpStudent>> getList(int page, int limit, String keyword) {
         List<ErpStudent> list;
-        PageHelper.startPage(page, limit);
+        PageHelper.startPage(page, limit, "create_date desc");
         if (keyword != null && !keyword.trim().isEmpty()) {
             keyword = "%" + keyword.trim() + "%";
             Example example = new Example(ErpStudent.class);
@@ -72,16 +77,43 @@ public class ErpStudentController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean<String> create(@Validated ErpStudent item) {
-        service.insertSelective(item);
-        return new ResultBean<String>("");
+    public ResultBean<String> create(@RequestBody @Validated ErpStudent item) {
+        if(service.insertSelective(item) == 1) {
+            // 插入
+            insertErpSFamilyMember(item);
+            return new ResultBean<String>("");
+        }
+
+        return new ResultBean<String>(ExceptionEnum.BUSINESS_ERROR, "新增学生异常！", "新增失败!", "");
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean<String> update(@Validated ErpStudent item) {
-        service.updateByPrimaryKeySelective(item);
-        return new ResultBean<String>("");
+    public ResultBean<String> update(@RequestBody @Validated ErpStudent item) {
+        if(service.updateByPrimaryKeySelective(item) == 1) {
+            // 删除
+            Example example = new Example(ErpSFamilyMember.class);
+            example.createCriteria().andEqualTo("studId", item.getId());
+            sFamilyMemberService.deleteByExample(example);
+
+            // 插入
+            insertErpSFamilyMember(item);
+
+            return new ResultBean<String>("");
+        }
+        return new ResultBean<String>(ExceptionEnum.BUSINESS_ERROR, "修改学生异常！", "修改失败!", "");
+    }
+
+    public int insertErpSFamilyMember(ErpStudent item) {
+        List<ErpSFamilyMember> list = item.getErpSFamilyMemberList();
+        for(ErpSFamilyMember sFamilyMember: list) {
+            sFamilyMember.setId(IdUtil.simpleUUID());
+            sFamilyMember.setStudId(item.getId());
+        }
+        if(list.size() > 0) {
+            return sFamilyMemberService.insertList(list);
+        }
+        return 0;
     }
 
     @RequestMapping(value = "/deleteByID", method = RequestMethod.POST)

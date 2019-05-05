@@ -156,4 +156,16 @@ CREATE TABLE `erp_student_excel`  (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Table structure for erp_s_family_member
+-- ----------------------------
+DROP TABLE IF EXISTS `erp_s_family_member`;
+CREATE TABLE `erp_s_family_member`  (
+  `id` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '注解',
+  `stud_id` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '学生ID',
+  `relation` tinyint(4) NULL DEFAULT NULL COMMENT '成员关系',
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '成员名称',
+  `job` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '成员工作'
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '学生家庭成员' ROW_FORMAT = Dynamic;
+
 SET FOREIGN_KEY_CHECKS = 1;

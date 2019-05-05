@@ -4,36 +4,12 @@ layui.define(['layer'], function (exports) {
     var layer = layui.layer;
 
     var admin = {
-        // 缓存token
-        putToken: function (token) {
-            layui.data(admin.getTableName(), {
-                key: 'token',
-                value: token
-            });
-        },
-        // 获取缓存的token
-        getToken: function () {
-            return layui.data(admin.getTableName()).token;
-        },
-        // 清除token
-        removeToken: function () {
-            layui.data(admin.getTableName(), {
-                key: 'token',
-                remove: true
-            });
-        },
         // 封装ajax请求，返回数据类型为json
         req: function (url, data, success, method) {
-            if ('put' == method.toLowerCase()) {
-                method = 'POST';
-                data._method = 'PUT';
-            } else if ('delete' == method.toLowerCase()) {
-                method = 'POST';
-                data._method = 'DELETE';
-            }
             admin.ajax({
-                url: (base_server ? base_server : '') + url,
-                data: data,
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(data),
                 type: method,
                 dataType: 'json',
                 success: success
@@ -50,47 +26,47 @@ layui.define(['layer'], function (exports) {
                 } else {
                     jsonRs = admin.parseJSON(result);
                 }
-                if (jsonRs && admin.ajaxSuccessBefore(jsonRs) == false) {
-                    return;
-                }
+                // if (jsonRs && admin.ajaxSuccessBefore(jsonRs) == false) {
+                //     return;
+                // }
                 successCallback(result, status, xhr);
             };
             param.error = function (xhr) {
                 param.success({code: xhr.status, msg: xhr.statusText});
             };
-            param.beforeSend = function (xhr) {
-                var headers = admin.getAjaxHeaders();
-                for (var i = 0; i < headers.length; i++) {
-                    xhr.setRequestHeader(headers[i].name, headers[i].value);
-                }
-            };
+            // param.beforeSend = function (xhr) {
+            //     var headers = admin.getAjaxHeaders();
+            //     for (var i = 0; i < headers.length; i++) {
+            //         xhr.setRequestHeader(headers[i].name, headers[i].value);
+            //     }
+            // };
             $.ajax(param);
         },
         // ajax自动传递header
-        getAjaxHeaders: function () {
-            var headers = [];
-            var token = admin.getToken();
-            headers.push({
-                name: 'Authorization',
-                value: 'Bearer ' + token.access_token
-            });
-            return headers;
-        },
+        // getAjaxHeaders: function () {
+        //     var headers = [];
+        //     var token = admin.getToken();
+        //     headers.push({
+        //         name: 'Authorization',
+        //         value: 'Bearer ' + token.access_token
+        //     });
+        //     return headers;
+        // },
         // ajax请求结束后的处理，返回false阻止代码执行
-        ajaxSuccessBefore: function (res) {
-            if (res.code == 401) {
-                admin.removeToken();
-                layer.msg('登录过期', {icon: 2, time: 1500}, function () {
-                    top.location.reload();
-                });
-                return false;
-            } else if (res.code == 403) {
-                layer.msg('没有访问权限', {icon: 2});
-            } else if (res.code == 404) {
-                layer.msg('目标不存在(404)', {icon: 2});
-            }
-            return true;
-        },
+        // ajaxSuccessBefore: function (res) {
+        //     if (res.code == 401) {
+        //         admin.removeToken();
+        //         layer.msg('登录过期', {icon: 2, time: 1500}, function () {
+        //             top.location.reload();
+        //         });
+        //         return false;
+        //     } else if (res.code == 403) {
+        //         layer.msg('没有访问权限', {icon: 2});
+        //     } else if (res.code == 404) {
+        //         layer.msg('目标不存在(404)', {icon: 2});
+        //     }
+        //     return true;
+        // },
         // 转换json
         parseJSON: function (str) {
             if (typeof str == 'string') {
