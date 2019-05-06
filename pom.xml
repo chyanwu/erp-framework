@@ -186,6 +186,12 @@
             <artifactId>xmlworker</artifactId>
             <version>5.5.11</version>
         </dependency>
+
+        <!-- aop依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

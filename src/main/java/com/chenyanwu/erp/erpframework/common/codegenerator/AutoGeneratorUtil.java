@@ -64,9 +64,9 @@ public class AutoGeneratorUtil {
     public static void main(String[] args) throws Exception {
 
         //注意：一定要指定下划线，目的是为了下面截取出模块名;在此处修改对应的表名来生成代码
-        String tableNamePattern = "erp_s_family_member";
+        String tableNamePattern = "erp_log";
         //  设置对应的代码属于哪个功能模块
-        String childPackage = "importutil";
+        String childPackage = "log";
         //设置模块名
 //        int index = tableNamePattern.indexOf("_");
 //        if (index > 0) {

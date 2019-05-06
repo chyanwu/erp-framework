@@ -1,6 +1,7 @@
 package com.chenyanwu.erp.erpframework.controller.importutil;
 
 import cn.hutool.core.util.IdUtil;
+import com.chenyanwu.erp.erpframework.annotation.Log;
 import com.chenyanwu.erp.erpframework.common.PageResultBean;
 import com.chenyanwu.erp.erpframework.common.ResultBean;
 import com.chenyanwu.erp.erpframework.common.util.ExcelUtil;
@@ -79,6 +80,7 @@ public class ErpStudentController {
 
     }
 
+    @Log("新增学生")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public ResultBean<String> create(@RequestBody @Validated ErpStudent item) {
@@ -91,6 +93,7 @@ public class ErpStudentController {
         return new ResultBean<String>(ExceptionEnum.BUSINESS_ERROR, "新增学生异常！", "新增失败!", "");
     }
 
+    @Log("编辑学生")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public ResultBean<String> update(@RequestBody @Validated ErpStudent item) {
@@ -127,6 +130,7 @@ public class ErpStudentController {
         return new ResultBean<Integer>(result);
     }
 
+    @Log("删除学生")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public ResultBean<Integer> delete(ErpStudent item) {
