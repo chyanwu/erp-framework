@@ -1,10 +1,12 @@
 package com.chenyanwu.erp.erpframework.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.MultipartConfigElement;
 import javax.sql.DataSource;
 
 /**
@@ -26,4 +28,14 @@ public class Config {
 //        druidDataSource.setPassword("mysql");
 //        return druidDataSource;
 //    }
+
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        //  单个数据大小
+        factory.setMaxFileSize("102400KB");
+        /// 总上传数据大小
+        factory.setMaxRequestSize("512000KB");
+        return factory.createMultipartConfig();
+    }
 }

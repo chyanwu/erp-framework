@@ -64,14 +64,14 @@
             <label class="layui-form-label">菜单URL</label>
             <div class="layui-input-block">
                 <input name="url" placeholder="请输入菜单URL" type="text" class="layui-input"
-                       maxlength="20"/>
+                       maxlength="100"/>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">权限标识</label>
             <div class="layui-input-block">
                 <input name="permission" type="text" class="layui-input"
-                       maxlength="20"/>
+                       maxlength="50"/>
             </div>
         </div>
         <div class="layui-form-item">
@@ -124,14 +124,14 @@
             <label class="layui-form-label">菜单URL</label>
             <div class="layui-input-block">
                 <input name="url" placeholder="请输入菜单URL" type="text" class="layui-input"
-                       maxlength="20"/>
+                       maxlength="100"/>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">权限标识</label>
             <div class="layui-input-block">
                 <input name="permission" type="text" class="layui-input"
-                       maxlength="20"/>
+                       maxlength="50"/>
             </div>
         </div>
         <div class="layui-form-item">

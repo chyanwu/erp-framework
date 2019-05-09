@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenyanwu.erp.erpframework.dao.log.ErpLogMapper">
+    <resultMap id="BaseResultMap" type="com.chenyanwu.erp.erpframework.entity.log.ErpLog">
+
+        <result column="error_message" property="errorMessage" jdbcType="CLOB"/>
+        <result column="response_value" property="responseValue" jdbcType="CLOB"/>
+        <result column="end_time" property="endTime" jdbcType="DATE"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="params" property="params" jdbcType="CLOB"/>
+        <result column="uri" property="uri" jdbcType="VARCHAR"/>
+        <result column="brower" property="brower" jdbcType="VARCHAR"/>
+        <result column="start_time" property="startTime" jdbcType="DATE"/>
+        <result column="http_method" property="httpMethod" jdbcType="VARCHAR"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="TINYINT"/>
+        <result column="class_method" property="classMethod" jdbcType="VARCHAR"/>
+        <result column="execute_time" property="executeTime" jdbcType="BIGINT"/>
+        <result column="host" property="host" jdbcType="VARCHAR"/>
+        <result column="header" property="header" jdbcType="VARCHAR"/>
+        <result column="operating_system" property="operatingSystem" jdbcType="VARCHAR"/>
+        <result column="error_code" property="errorCode" jdbcType="TINYINT"/>
+        <result column="id" property="id" jdbcType="CHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+
+    </resultMap>
+</mapper>
