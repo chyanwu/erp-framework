@@ -57,6 +57,7 @@ layui.define(['layer', 'jquery'], function (exports) {
                     owner.md5File(file, 0, 5 * 1024 * 1024)
                         .progress(function (percentage) {
                             $('#' + file.id).find(".file-status").text("读取中...");
+                            console.log('计算MD5进度：', percentage);
                             //赋值文件初始进度
                             //0-1
                             file.process = 0;
@@ -279,12 +280,12 @@ layui.define(['layer', 'jquery'], function (exports) {
                 //正在上传的文件显示暂停
                 $li.siblings('.file-manage').find(".stop-btn").removeClass("layui-hide");
                 //$li.find('.per').text((percentage * 100).toFixed(2) + '%');
-                $percent.css('width', (file.process * 100).toFixed(0) + '%');
-                $percent.attr('lay-percent', (file.process * 100).toFixed(0) + '%');
-                $percent.html("<span class='layui-progress-text'>" + (file.process * 100).toFixed(0) + '%' + "</span>");
-                if (file.process < percentage && percentage < 1) {
-                    file.process = percentage;
-                }
+                $percent.css('width', (percentage * 100).toFixed(0) + '%');
+                $percent.attr('lay-percent', (percentage * 100).toFixed(0) + '%');
+                $percent.html("<span class='layui-progress-text'>" + (percentage * 100).toFixed(0) + '%' + "</span>");
+                // if (file.process < percentage && percentage < 1) {
+                //     file.process = percentage;
+                // }
 
 
                 // 避免重复创建
