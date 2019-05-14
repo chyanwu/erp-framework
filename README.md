@@ -2,6 +2,8 @@
 
 erp-framework是一个基于在Springboot框架上的开箱即用的管理平台，目的为了简化构建平台的繁杂过程，让大家直接能够基于在此结构上直接开发或者扩展。
 
+登录用户/密码: admin/1
+
 1、代码更新日志
 ##2019年1月15日 
 主要完成了代码生成工具，目的是完成基本的增删改查功能，无需重复复制代码
@@ -13,5 +15,32 @@ erp-framework是一个基于在Springboot框架上的开箱即用的管理平台
 
 
 2、技术选型
+后端技术：
+技术 |	名称 |	官网
+------------ | ------------- | -------------
+SpringBoot | 容器框架	|
+freemarker | 模板引擎	|
+velocity | 模板引擎	|
+tk.mybatis | ORM框架	|
+Mybatis-plus | ORM框架和代码生成	|
+Lombok | setter和getter	|
+mysql-connector-java | 连接驱动	|
+druid | 数据库连接池	|
+pagehelper | 分页插件	|
+swagger2 | 接口测试框架 | https://swagger.io/
+Jackson-databind | 对象与json相互转换	|
+Apache Shiro | 权限控制	|
+hutool | 工具类	|
+Shiro-redis | 缓存	|
+Easypoi | Excel导入导出工具	|
+Itextpdf | PDF预览	|
+FastDFS | 分布式文件系统	|
+
+前端技术：
+技术 |	名称 |	官网
+------------ | ------------- | -------------
+Layui | |
+Webuploader | 文件上传 |
 
 3、目录结构
+
