@@ -33,7 +33,7 @@
     </resultMap>
 
     <select id="findUserByLoginName" parameterType="String" resultMap="ResultMap">
-        select u.id,u.login_name,u.name,u.password,u.salt,u.locked,u.enabled,r.id AS 'r.id',r.name AS 'r.name',m.id AS 'm.id',m.name As 'r.name',permission
+        select u.id,u.login_name,u.name,u.password,u.salt,u.locked,u.enabled,r.id AS 'r.id',r.name AS 'r.name',m.id AS 'm.id',m.name As 'r.name',permission,phone
         from erp_user u
         left join erp_role_user ru on ru.user_id=u.id
         left join erp_role r on ru.role_id=r.id

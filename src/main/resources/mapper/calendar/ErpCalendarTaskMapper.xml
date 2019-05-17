@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenyanwu.erp.erpframework.dao.calendar.ErpCalendarTaskMapper">
+    <resultMap id="BaseResultMap" type="com.chenyanwu.erp.erpframework.entity.calendar.ErpCalendarTask">
+
+        <result column="room_id" property="roomId" jdbcType="CHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="appoint_theme" property="appointTheme" jdbcType="VARCHAR"/>
+        <result column="appoint_person" property="appointPerson" jdbcType="VARCHAR"/>
+        <result column="etime" property="etime" jdbcType="TIMESTAMP"/>
+        <result column="stime" property="stime" jdbcType="TIMESTAMP"/>
+        <result column="tel" property="tel" jdbcType="VARCHAR"/>
+        <result column="id" property="id" jdbcType="CHAR"/>
+        <result column="create_date" property="createDate" jdbcType="DATE"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="update_date" property="updateDate" jdbcType="DATE"/>
+
+    </resultMap>
+
+    <select id="getErpCalendarTaskByParams" resultMap="BaseResultMap">
+        select id,appoint_theme,appoint_person,tel,stime,etime
+        from erp_calendar_task
+        where room_id=#{roomId}
+        and stime &gt;=#{sTime} and etime &lt;=#{eTime}
+    </select>
+</mapper>
