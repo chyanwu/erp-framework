@@ -209,12 +209,12 @@
             <version>1.27-SNAPSHOT</version>
         </dependency>
 
-        <!-- 对springboot配置文件加密 -->
-        <dependency>
-            <groupId>com.github.ulisesbocchio</groupId>
-            <artifactId>jasypt-spring-boot-starter</artifactId>
-            <version>2.1.1</version>
-        </dependency>
+        <!-- 对springboot配置文件加密  使用connectProperties属性来处理数据库密码-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.ulisesbocchio</groupId>-->
+            <!--<artifactId>jasypt-spring-boot-starter</artifactId>-->
+            <!--<version>2.1.1</version>-->
+        <!--</dependency>-->
     </dependencies>
 
     <build>

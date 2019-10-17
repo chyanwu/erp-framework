@@ -42,7 +42,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
         }
     }
 
-    // 注册连接器
+    // 注册过滤器
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new MyHandlerInterceptor())
