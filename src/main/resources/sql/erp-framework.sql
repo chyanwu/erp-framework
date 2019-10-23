@@ -67,16 +67,18 @@ CREATE TABLE `erp_menu`  (
 -- ----------------------------
 -- Records of erp_menu
 -- ----------------------------
-INSERT INTO `erp_menu` VALUES ('3c7a59ad0169100000004dcfc7763697', '首页', '/home/index', '0', 1, NULL, 1, NULL, 0, '', '2019-03-02 11:37:25', '2019-03-02 11:37:25', 'admin', 'admin');
-INSERT INTO `erp_menu` VALUES ('2e0734650169100000007d0aeb217952', '系统管理', '', '0', 1, NULL, 2, NULL, 0, '', '2019-02-27 16:16:58', '2019-02-27 16:16:58', 'admin', 'admin');
-INSERT INTO `erp_menu` VALUES ('3c7f25590169100000004dcfc7763697', '菜单管理', '/erpmenu/index', '2e0734650169100000007d0aeb217952', 2, NULL, 3, NULL, 0, '', '2019-03-02 11:42:39', '2019-03-02 12:00:33', 'admin', 'admin');
-INSERT INTO `erp_menu` VALUES ('3c7f833c0169100000004dcfc7763697', '角色管理', '/erprole/index', '2e0734650169100000007d0aeb217952', 2, NULL, 4, NULL, 0, '', '2019-03-02 11:43:03', '2019-03-02 11:44:17', 'admin', 'admin');
-INSERT INTO `erp_menu` VALUES ('3c800f530169100000004dcfc7763697', '用户管理', '/erpuser/index', '2e0734650169100000007d0aeb217952', 2, NULL, 5, NULL, 0, '', '2019-03-02 11:43:39', '2019-03-02 11:43:39', 'admin', 'admin');
+INSERT INTO `erp_menu` VALUES ('3c7a59ad0169100000004dcfc7763697', '首页', '/home/index', '0', 1, NULL, 1, NULL, 0, '', '2019-03-02 11:37:25', '2019-03-02 11:37:25', 'chenyanwu', 'chenyanwu');
+INSERT INTO `erp_menu` VALUES ('2e0734650169100000007d0aeb217952', '系统管理', '', '0', 1, NULL, 2, NULL, 0, '', '2019-02-27 16:16:58', '2019-02-27 16:16:58', 'chenyanwu', 'chenyanwu');
+INSERT INTO `erp_menu` VALUES ('3c7f25590169100000004dcfc7763697', '菜单管理', '/erpmenu/index', '2e0734650169100000007d0aeb217952', 2, NULL, 3, NULL, 0, '', '2019-03-02 11:42:39', '2019-03-02 12:00:33', 'chenyanwu', 'chenyanwu');
+INSERT INTO `erp_menu` VALUES ('3c7f833c0169100000004dcfc7763697', '角色管理', '/erprole/index', '2e0734650169100000007d0aeb217952', 2, NULL, 4, NULL, 0, '', '2019-03-02 11:43:03', '2019-03-02 11:44:17', 'chenyanwu', 'chenyanwu');
+INSERT INTO `erp_menu` VALUES ('3c800f530169100000004dcfc7763697', '用户管理', '/erpuser/index', '2e0734650169100000007d0aeb217952', 2, NULL, 5, NULL, 0, '', '2019-03-02 11:43:39', '2019-03-02 11:43:39', 'chenyanwu', 'chenyanwu');
 INSERT INTO `erp_menu` VALUES ('ce053506a0ef4796a825d5e28c2645c8', '通用功能', '', '0', 1, NULL, 6, NULL, 0, '', '2019-04-26 14:28:31', '2019-04-26 14:28:31', 'admin', 'admin');
 INSERT INTO `erp_menu` VALUES ('74f35ad313f34de1ad884bf8b9035df6', '学生管理', '/erpstudent/index', 'ce053506a0ef4796a825d5e28c2645c8', 2, NULL, 7, NULL, 0, '', '2019-04-26 14:29:02', '2019-04-26 14:29:02', 'admin', 'admin');
 INSERT INTO `erp_menu` VALUES ('62becb3a05b04ad39bbe682a9b227493', '图片上传', '/fileupload/photolist', 'ce053506a0ef4796a825d5e28c2645c8', 2, NULL, 8, NULL, 0, '', '2019-05-09 11:18:27', '2019-05-09 11:24:30', 'admin', 'admin');
 INSERT INTO `erp_menu` VALUES ('f4eb1a663649432ab036032630118699', '视频上传', '/fileupload/videolist', 'ce053506a0ef4796a825d5e28c2645c8', 2, NULL, 9, NULL, 0, '', '2019-05-09 11:19:03', '2019-05-09 11:24:33', 'admin', 'admin');
 INSERT INTO `erp_menu` VALUES ('2b81f76a8a93472cb5aebba4ec1890a2', '文件上传', '/upload/upload', 'ce053506a0ef4796a825d5e28c2645c8', 2, NULL, 10, NULL, 0, '', '2019-05-10 16:59:15', '2019-05-10 16:59:15', 'admin', 'admin');
+INSERT INTO `erp_menu` VALUES ('da0ededdbf8b420d8457523ff79fd884', '日程管理', '/calendar/index', 'ce053506a0ef4796a825d5e28c2645c8', 2, NULL, 11, NULL, 0, '', '2019-05-15 09:25:08', '2019-05-15 09:25:08', 'admin', 'admin');
+INSERT INTO `erp_menu` VALUES ('6c2650aeff2d422c80f6d053b2002aae', '日志管理', '/erplog/index', '2e0734650169100000007d0aeb217952', 2, NULL, 12, NULL, 0, '', '2019-10-23 16:44:29', '2019-10-23 16:44:29', 'admin', 'admin');
 
 -- ----------------------------
 -- Table structure for erp_role
@@ -114,11 +116,13 @@ INSERT INTO `erp_role_menu` VALUES ('13989fd40169100000000f8447ca6bc1', '2e07346
 INSERT INTO `erp_role_menu` VALUES ('13989fd40169100000000f8447ca6bc1', '3c7f25590169100000004dcfc7763697');
 INSERT INTO `erp_role_menu` VALUES ('13989fd40169100000000f8447ca6bc1', '3c7f833c0169100000004dcfc7763697');
 INSERT INTO `erp_role_menu` VALUES ('13989fd40169100000000f8447ca6bc1', '3c800f530169100000004dcfc7763697');
+INSERT INTO `erp_role_menu` VALUES ('13989fd40169100000000f8447ca6bc1', '6c2650aeff2d422c80f6d053b2002aae');
 INSERT INTO `erp_role_menu` VALUES ('13989fd40169100000000f8447ca6bc1', 'ce053506a0ef4796a825d5e28c2645c8');
 INSERT INTO `erp_role_menu` VALUES ('13989fd40169100000000f8447ca6bc1', '74f35ad313f34de1ad884bf8b9035df6');
 INSERT INTO `erp_role_menu` VALUES ('13989fd40169100000000f8447ca6bc1', '62becb3a05b04ad39bbe682a9b227493');
 INSERT INTO `erp_role_menu` VALUES ('13989fd40169100000000f8447ca6bc1', 'f4eb1a663649432ab036032630118699');
 INSERT INTO `erp_role_menu` VALUES ('13989fd40169100000000f8447ca6bc1', '2b81f76a8a93472cb5aebba4ec1890a2');
+INSERT INTO `erp_role_menu` VALUES ('13989fd40169100000000f8447ca6bc1', 'da0ededdbf8b420d8457523ff79fd884');
 
 -- ----------------------------
 -- Table structure for erp_role_user
@@ -135,6 +139,29 @@ CREATE TABLE `erp_role_user`  (
 INSERT INTO `erp_role_user` VALUES ('8bc912218e974b34bf8099dd79d30c1e', '08d0601059d243bf8b01129bfd4c0fa6');
 INSERT INTO `erp_role_user` VALUES ('13989fd40169100000000f8447ca6bc1', '1');
 INSERT INTO `erp_role_user` VALUES ('8bc912218e974b34bf8099dd79d30c1e', '1');
+
+
+-- ----------------------------
+-- Table structure for erp_room
+-- ----------------------------
+DROP TABLE IF EXISTS `erp_room`;
+CREATE TABLE `erp_room`  (
+  `id` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '会议室ID',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '会议室名称',
+  `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_date` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `create_by` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '创建人',
+  `update_by` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '修改人'
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '会议室' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of erp_room
+-- ----------------------------
+INSERT INTO `erp_room` VALUES ('1', '会议室一', NULL, NULL, '', NULL);
+INSERT INTO `erp_room` VALUES ('2', '会议室二', NULL, NULL, '', NULL);
+INSERT INTO `erp_room` VALUES ('3', '会议室三', NULL, NULL, '', NULL);
+INSERT INTO `erp_room` VALUES ('4', '会议室四', NULL, NULL, '', NULL);
+INSERT INTO `erp_room` VALUES ('5', '会议室五', NULL, NULL, '', NULL);
 
 -- ----------------------------
 -- Table structure for erp_s_family_member

@@ -3,6 +3,7 @@ package com.chenyanwu.erp.erpframework.entity.log;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
@@ -21,6 +22,7 @@ import java.util.Date;
 @Table(name = "erp_log")
 public class ErpLog implements Serializable {
 
+    @Id
     @Column(name = "id")
     private String id;
 
