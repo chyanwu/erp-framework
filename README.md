@@ -58,3 +58,10 @@ Webuploader | 文件上传 |
 3、目录结构
 
 ![Image](https://github.com/chyanwu/erp-framework/blob/master/src/main/resources/image/catalogue.png)
+
+4、简单功能界面
+![Image text](https://github.com/chyanwu/erp-framework/blob/master/0.png)
+![Image text](https://github.com/chyanwu/erp-framework/blob/master/1.png)
+![Image text](https://github.com/chyanwu/erp-framework/blob/master/2.png)
+![Image text](https://github.com/chyanwu/erp-framework/blob/master/3.png)
+![Image text](https://github.com/chyanwu/erp-framework/blob/master/4.png)
