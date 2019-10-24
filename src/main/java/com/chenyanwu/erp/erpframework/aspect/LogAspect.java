@@ -106,7 +106,7 @@ public class LogAspect {
         HttpServletRequest request = ToolUtil.getRequest();
         erpLog.setType(ToolUtil.isAjaxRequest(request) ? "Ajax请求" : "普通请求");
         erpLog.setTitle(log.value());
-        erpLog.setHost(request.getRemoteHost());
+        erpLog.setHost(ToolUtil.getClientIp(request));
         erpLog.setUri(request.getRequestURI().toString());
 //        erpLog.setHeader(request.getHeader(HttpHeaders.USER_AGENT));
         erpLog.setHttpMethod(request.getMethod());

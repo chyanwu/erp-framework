@@ -164,6 +164,24 @@ INSERT INTO `erp_room` VALUES ('4', '会议室四', NULL, NULL, '', NULL);
 INSERT INTO `erp_room` VALUES ('5', '会议室五', NULL, NULL, '', NULL);
 
 -- ----------------------------
+-- Table structure for erp_calendar_task
+-- ----------------------------
+DROP TABLE IF EXISTS `erp_calendar_task`;
+CREATE TABLE `erp_calendar_task`  (
+  `id` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '预约ID',
+  `appoint_theme` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '预约主题',
+  `appoint_person` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '预约人',
+  `stime` datetime(0) NULL DEFAULT NULL COMMENT '预约开始时间',
+  `etime` datetime(0) NULL DEFAULT NULL COMMENT '预约结束时间',
+  `tel` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '联系方式',
+  `room_id` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '会议室ID',
+  `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_date` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `create_by` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '创建人',
+  `update_by` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '修改人'
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '日程任务' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for erp_s_family_member
 -- ----------------------------
 DROP TABLE IF EXISTS `erp_s_family_member`;
